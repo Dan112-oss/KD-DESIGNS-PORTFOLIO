@@ -555,11 +555,18 @@
   </footer>
 
   <!-- Scripts: loaded at the end of body for performance -->
+  <!-- GSAP + ScrollTrigger: scroll-driven reveal animations and a
+       subtle Hero parallax. Loaded before our own scripts since
+       animations.js depends on them. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
   <script src="js/nav.js"></script>
   <script src="js/portfolio.js"></script>
   <script src="js/testimonials.js"></script>
   <script src="js/contact.js"></script>
   <script src="js/theme.js"></script>
+  <script src="js/animations.js"></script>
   <script src="js/main.js"></script>
 
 </body>

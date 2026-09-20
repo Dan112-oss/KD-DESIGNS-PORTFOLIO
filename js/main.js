@@ -30,4 +30,11 @@ document.addEventListener('DOMContentLoaded', function () {
   if (footerYear) {
     footerYear.textContent = new Date().getFullYear();
   }
+
+  // Runs last: reveal animations and the Portfolio tilt effect
+  // need the Portfolio/Testimonials cards to already exist in
+  // the DOM, which the two init calls above just created.
+  if (window.KD && typeof KD.initAnimations === 'function') {
+    KD.initAnimations();
+  }
 });
