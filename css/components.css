@@ -1,0 +1,912 @@
+/* ==========================================================
+   COMPONENTS.CSS
+   Purpose: Reusable, visual styling for UI pieces — buttons,
+   nav links, logo treatment — built as classes so later
+   sections can reuse them instead of writing new CSS.
+============================================================= */
+
+/* -----------------------------------------
+   THEME
+   Body picks up the current theme's background/
+   text color. A shared transition on the main
+   themed surfaces keeps the light/dark switch
+   from feeling like a hard cut.
+------------------------------------------ */
+body {
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+/* Dark theme: a dark base with two soft glows in the brand
+   colors, fixed to the viewport so it reads as one continuous
+   backdrop behind every section rather than a per-section fill.
+   Kept low-opacity on purpose — a full-strength orange wash
+   would fight with body text contrast; this is closer to a
+   spotlight than a paint job. */
+[data-theme="dark"] body {
+  background:
+    radial-gradient(1100px circle at 12% -8%, rgba(215, 112, 1, 0.16), transparent 55%),
+    radial-gradient(900px circle at 88% 105%, rgba(243, 164, 44, 0.12), transparent 55%),
+    linear-gradient(180deg, #17130D 0%, #121214 45%, #0D0D0F 100%);
+  background-attachment: fixed;
+}
+
+/* The header stays sticky above scrolling content, so — unlike
+   every other section — it needs to stay opaque in dark mode
+   rather than let the gradient show through underneath it. */
+[data-theme="dark"] .site-header {
+  background-color: rgba(18, 18, 20, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.site-header,
+.mobile-nav,
+.portrait-frame,
+.site-footer {
+  transition: background-color var(--transition-base), border-color var(--transition-base), color var(--transition-base);
+}
+
+/* -----------------------------------------
+   SITE HEADER (visual)
+------------------------------------------ */
+.site-header {
+  background-color: var(--color-background);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* -----------------------------------------
+   LOGO
+   Uses the existing logo file as-is — sized
+   via CSS only, never redrawn.
+------------------------------------------ */
+.nav-logo__image {
+  height: 52px;
+  width: auto;
+  display: block;
+}
+
+/* -----------------------------------------
+   NAV LINKS
+------------------------------------------ */
+.site-nav__link,
+.mobile-nav__link {
+  position: relative;
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  padding-block: var(--space-xs);
+  transition: color var(--transition-base);
+}
+
+/* Animated underline on hover — single, restrained motion cue */
+.site-nav__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--gradient-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-base);
+}
+
+.site-nav__link:hover,
+.site-nav__link:focus-visible {
+  color: var(--color-primary);
+}
+
+.site-nav__link:hover::after,
+.site-nav__link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.mobile-nav__link {
+  display: inline-block;
+  font-size: var(--font-size-md);
+}
+
+.mobile-nav__link:hover,
+.mobile-nav__link:focus-visible {
+  color: var(--color-primary);
+}
+
+/* Shared, visible focus treatment for keyboard users */
+.site-nav__link:focus-visible,
+.mobile-nav__link:focus-visible,
+.btn:focus-visible,
+.nav-toggle:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+/* -----------------------------------------
+   BUTTONS
+   Base .btn is reusable for any future CTA;
+   .btn--primary is the gradient brand treatment.
+------------------------------------------ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-full);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.btn--primary {
+  background: var(--gradient-primary);
+  color: var(--color-text-inverse);
+}
+
+.btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -6px rgba(215, 112, 1, 0.45);
+}
+
+/* -----------------------------------------
+   MOBILE NAV TOGGLE (hamburger icon)
+------------------------------------------ */
+.nav-toggle__bar {
+  background-color: var(--color-text-primary);
+  border-radius: var(--radius-full);
+  transition: transform var(--transition-base), opacity var(--transition-base);
+}
+
+/* Morph into an X when open */
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* -----------------------------------------
+   MOBILE NAV PANEL (visual)
+------------------------------------------ */
+.mobile-nav {
+  background-color: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+}
+
+/* -----------------------------------------
+   HERO SECTION
+   Typography now pulls the finalized brand
+   family (Plus Jakarta Sans) via --font-primary /
+   --font-secondary — both point to the same
+   family, so hierarchy comes from weight and size.
+------------------------------------------ */
+.hero {
+  background-color: var(--color-background);
+}
+
+/* Dark mode only: the placeholder portrait box is replaced by
+   Just's own designed hero image (gradient + photo, wide variant
+   for tablet/desktop). A dark-to-transparent scrim sits between
+   the image and the text so the copy stays readable regardless
+   of the photo's exact tones underneath. Light mode is untouched —
+   it keeps the plain placeholder box for a photo to be added later. */
+[data-theme="dark"] .hero {
+  background-image:
+    linear-gradient(90deg, rgba(10, 8, 6, 0.7) 0%, rgba(10, 8, 6, 0.35) 45%, rgba(10, 8, 6, 0) 72%),
+    url('../assets/images/hero/hero-visual-wide.jpg');
+  background-size: cover, cover;
+  background-position: left center, right center;
+  background-repeat: no-repeat, no-repeat;
+}
+
+/* The real photo now lives in the section background above, so
+   the icon-and-label placeholder (and its decorative accent) are
+   redundant in dark mode — hide the whole visual column. */
+[data-theme="dark"] .hero__visual {
+  display: none;
+}
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+.hero__eyebrow-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--gradient-primary);
+  flex-shrink: 0;
+}
+
+.hero__headline {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-extrabold);
+  color: var(--color-text-primary);
+  /* Extends past --font-size-3xl for hero impact; scales with viewport */
+  font-size: clamp(2.25rem, 1.5rem + 2.8vw, 3.5rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  max-width: 26ch;
+}
+
+.hero__paragraph {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+  max-width: 48ch;
+}
+
+/* Secondary CTA: reuses brand color as an outline, no new accent */
+.btn--secondary {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary);
+}
+
+.btn--secondary:hover {
+  background-color: rgba(215, 112, 1, 0.08);
+  transform: translateY(-2px);
+}
+
+/* Portrait placeholder — structure only, no invented photo */
+.portrait-frame {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  color: var(--color-text-secondary);
+}
+
+.portrait-frame__icon {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+}
+
+.portrait-frame__label {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-sm);
+}
+
+/* Reserved work-preview frames — empty until Portfolio phase */
+.preview-card {
+  background-color: var(--color-background);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.12);
+}
+
+/* -----------------------------------------
+   HERO ENTRANCE ANIMATION
+   One subtle, orchestrated moment on load.
+   Skipped entirely for reduced-motion users.
+------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  .hero__eyebrow,
+  .hero__headline,
+  .hero__paragraph,
+  .hero__actions,
+  .hero__visual {
+    animation: hero-fade-up 0.6s ease-out both;
+  }
+
+  .hero__eyebrow   { animation-delay: 0s; }
+  .hero__headline  { animation-delay: 0.08s; }
+  .hero__paragraph { animation-delay: 0.16s; }
+  .hero__actions   { animation-delay: 0.24s; }
+  .hero__visual    { animation-delay: 0.2s; }
+
+  @keyframes hero-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* -----------------------------------------
+   SHARED SECTION PRIMITIVES
+   Generic versions of the Hero's eyebrow/heading
+   treatment, for reuse in Portfolio and future
+   sections without touching the Hero's own rules.
+------------------------------------------ */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+.eyebrow__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--gradient-primary);
+  flex-shrink: 0;
+}
+
+.section-heading {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-extrabold);
+  color: var(--color-text-primary);
+  font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2.5rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.section-lede {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-md);
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* -----------------------------------------
+   PORTFOLIO — FILTERS
+------------------------------------------ */
+.filter-btn,
+.filter-chip {
+  font-family: var(--font-secondary);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  background-color: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base);
+}
+
+.filter-btn {
+  font-size: var(--font-size-base);
+  padding: var(--space-xs) var(--space-md);
+}
+
+.filter-chip {
+  font-size: var(--font-size-sm);
+  padding: var(--space-xs) var(--space-sm);
+}
+
+.filter-btn:hover,
+.filter-chip:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.filter-btn.is-active,
+.filter-chip.is-active {
+  background: var(--gradient-primary);
+  border-color: transparent;
+  color: var(--color-text-inverse);
+}
+
+.filter-btn:focus-visible,
+.filter-chip:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* -----------------------------------------
+   PORTFOLIO — PROJECT CARDS
+------------------------------------------ */
+.project-card__image-wrap {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+}
+
+.project-card__image {
+  transition: transform var(--transition-slow);
+}
+
+.project-card:hover .project-card__image {
+  transform: scale(1.04);
+}
+
+.project-card__category {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+}
+
+.project-card__name {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  line-height: 1.3;
+}
+
+.project-card__description {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+.project-card__link {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  padding-bottom: 2px;
+  border-bottom: 1.5px solid var(--color-primary);
+  transition: color var(--transition-base);
+}
+
+.project-card__link:hover,
+.project-card__link:focus-visible {
+  color: var(--color-primary);
+}
+
+/* -----------------------------------------
+   ABOUT SECTION
+   Reuses .portrait-frame, .eyebrow,
+   .section-heading, .preview-card, and .btn
+   from Hero/Portfolio for visual consistency —
+   only the pieces unique to About are new here.
+------------------------------------------ */
+.about {
+  background-color: var(--color-background);
+}
+
+.about__paragraph {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-md);
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+  max-width: 56ch;
+}
+
+.skills-list__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+.skills-list__item::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--gradient-primary);
+  flex-shrink: 0;
+}
+
+/* -----------------------------------------
+   SERVICES SECTION
+------------------------------------------ */
+.services {
+  background-color: var(--color-background);
+}
+
+.service-card {
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: transform var(--transition-base), border-color var(--transition-base), background-color var(--transition-base);
+}
+
+.service-card:hover,
+.service-card:focus-visible {
+  transform: translateY(-4px);
+  border-color: var(--color-primary);
+}
+
+.service-card:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.service-card__number {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-border);
+  line-height: 1;
+  transition: color var(--transition-base);
+}
+
+.service-card:hover .service-card__number,
+.service-card:focus-visible .service-card__number {
+  color: var(--color-primary);
+}
+
+.service-card__icon-svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  color: var(--color-text-primary);
+  transition: color var(--transition-base);
+}
+
+.service-card:hover .service-card__icon-svg,
+.service-card:focus-visible .service-card__icon-svg {
+  color: var(--color-primary);
+}
+
+.service-card__title {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.service-card__description {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.service-card--featured .service-card__title {
+  font-size: var(--font-size-xl);
+}
+
+.service-card--featured .service-card__description {
+  font-size: var(--font-size-base);
+  max-width: 52ch;
+}
+
+/* -----------------------------------------
+   PROCESS SECTION
+------------------------------------------ */
+.process {
+  background-color: var(--color-background);
+}
+
+.process-step {
+  padding-block: var(--space-xs);
+  transition: transform var(--transition-base);
+}
+
+.process-step:hover,
+.process-step:focus-visible {
+  transform: translateY(-4px);
+}
+
+.process-step:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
+
+/* Gradient used selectively — only on the connector
+   lines between steps, not on the steps themselves */
+.process-step:not(:last-child)::after {
+  background: var(--gradient-primary);
+  opacity: 0.4;
+}
+
+.process-step__number {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-extrabold);
+  color: var(--color-border);
+  line-height: 1;
+  transition: color var(--transition-base);
+}
+
+.process-step:hover .process-step__number,
+.process-step:focus-visible .process-step__number {
+  color: var(--color-primary);
+}
+
+.process-step__title {
+  position: relative;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  padding-bottom: var(--space-xs);
+}
+
+/* Small accent bar under each title — the "border
+   or accent change" cue, paired with the lift above
+   so the sequence never relies on color alone */
+.process-step__title::after {
+  content: "";
+  display: block;
+  margin-top: var(--space-xs);
+  width: 28px;
+  height: 2px;
+  background-color: var(--color-border);
+  transition: background-color var(--transition-base);
+}
+
+.process-step:hover .process-step__title::after,
+.process-step:focus-visible .process-step__title::after {
+  background: var(--gradient-primary);
+}
+
+.process-step__description {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+/* -----------------------------------------
+   TESTIMONIALS SECTION
+------------------------------------------ */
+.testimonials {
+  background-color: var(--color-background);
+}
+
+.testimonial-card {
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: transform var(--transition-base), border-color var(--transition-base), background-color var(--transition-base);
+}
+
+.testimonial-card:hover,
+.testimonial-card:focus-visible {
+  transform: translateY(-4px);
+  border-color: var(--color-primary);
+}
+
+.testimonial-card:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.testimonial-card__quote-icon {
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-width: 1.5;
+}
+
+.testimonial-card__quote {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  color: var(--color-text-primary);
+}
+
+.testimonial-card__avatar {
+  background: var(--gradient-primary);
+  color: var(--color-text-inverse);
+  font-family: var(--font-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.testimonial-card__name {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.testimonial-card__role {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+/* -----------------------------------------
+   CONTACT SECTION
+------------------------------------------ */
+.contact {
+  background-color: var(--color-background);
+}
+
+.contact__email-link {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  margin-top: var(--space-xs);
+  transition: color var(--transition-base);
+}
+
+.contact__email-link:hover,
+.contact__email-link:focus-visible {
+  color: var(--color-primary-end);
+}
+
+.contact-form__label {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.contact-form__input,
+.contact-form__textarea {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm);
+  transition: border-color var(--transition-base), background-color var(--transition-base), color var(--transition-base);
+}
+
+.contact-form__textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.contact-form__input:hover,
+.contact-form__textarea:hover {
+  border-color: var(--color-text-secondary);
+}
+
+.contact-form__input:focus-visible,
+.contact-form__textarea:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-color: var(--color-primary);
+}
+
+/* Functional validation color — scoped only to form
+   error states, not used as a design accent elsewhere */
+.contact-form__input.has-error,
+.contact-form__textarea.has-error {
+  border-color: #D64545;
+}
+
+.contact-form__error {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-xs);
+  color: #D64545;
+  min-height: 1em;
+}
+
+.contact-form__status {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+/* -----------------------------------------
+   THEME TOGGLE
+------------------------------------------ */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  color: var(--color-text-primary);
+  transition: border-color var(--transition-base), color var(--transition-base);
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.theme-toggle__icon {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+/* Show the moon (⏾ "go dark") in light mode, the sun
+   (☀ "go light") in dark mode — never both at once */
+.theme-toggle__icon--sun {
+  display: none;
+}
+
+[data-theme="dark"] .theme-toggle__icon--moon {
+  display: none;
+}
+
+[data-theme="dark"] .theme-toggle__icon--sun {
+  display: block;
+}
+
+/* -----------------------------------------
+   FOOTER
+------------------------------------------ */
+.site-footer {
+  background-color: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+}
+
+.footer__logo {
+  height: 36px;
+  width: auto;
+}
+
+.footer__tagline {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.footer__link {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  transition: color var(--transition-base);
+}
+
+.footer__link:hover,
+.footer__link:focus-visible {
+  color: var(--color-primary);
+}
+
+.footer__email {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  transition: color var(--transition-base);
+}
+
+.footer__email:hover,
+.footer__email:focus-visible {
+  color: var(--color-primary-end);
+}
+
+.footer__bottom {
+  border-top: 1px solid var(--color-border);
+}
+
+.footer__copyright {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}

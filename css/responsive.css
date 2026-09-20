@@ -1,0 +1,416 @@
+/* ==========================================================
+   RESPONSIVE.CSS
+   Purpose: Breakpoint overrides only. Base styles in
+   layout.css / components.css are written desktop-first for
+   the navbar; this file adapts them down for tablet and mobile.
+
+   Reference breakpoints:
+   Mobile:  up to 599px
+   Tablet:  600px – 1023px
+   Desktop: 1024px and up
+============================================================= */
+
+/* -----------------------------------------
+   BELOW DESKTOP (tablet + mobile, <1024px)
+   Not enough width for logo + 5 links + CTA
+   without crowding, so both bands use the
+   hamburger menu.
+------------------------------------------ */
+@media (max-width: 1023px) {
+  .site-nav,
+  .site-header__cta {
+    display: none;
+  }
+
+  .theme-toggle {
+    margin-left: auto;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+  }
+}
+
+/* Desktop and up: hide the mobile menu entirely, hamburger stays hidden by default */
+@media (min-width: 1024px) {
+  .mobile-nav {
+    display: none;
+  }
+}
+
+/* -----------------------------------------
+   MOBILE (<600px)
+   Slightly smaller logo and tighter header
+   padding, per the approved sizing.
+------------------------------------------ */
+@media (max-width: 599px) {
+  .nav-logo__image {
+    height: 38px;
+  }
+
+  .site-header__inner {
+    padding-block: var(--space-sm);
+  }
+}
+
+/* -----------------------------------------
+   HERO — TABLET (600px – 1023px)
+   Keep the two-column layout, just narrower:
+   less width given to the visual column, and
+   a smaller portrait so it doesn't crowd the copy.
+------------------------------------------ */
+@media (max-width: 1023px) {
+  .hero__inner {
+    grid-template-columns: 1fr 0.75fr;
+    gap: var(--space-xl);
+    padding-block: var(--space-2xl);
+  }
+
+  .portrait-frame {
+    max-width: 280px;
+  }
+
+  .preview-card {
+    width: 72px;
+    height: 72px;
+  }
+
+  .hero__headline {
+    max-width: 20ch;
+  }
+}
+
+/* -----------------------------------------
+   HERO — MOBILE (<600px)
+   Stack vertically: text first (already first in
+   the DOM), portrait underneath. CTAs go full-width
+   for easy tapping. Preview cards are dropped here —
+   at this width they'd crowd the portrait rather
+   than frame it.
+------------------------------------------ */
+@media (max-width: 599px) {
+  .hero__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+    padding-block: var(--space-xl);
+  }
+
+  .hero__content {
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .hero__headline,
+  .hero__paragraph {
+    max-width: none;
+  }
+
+  .hero__actions {
+    width: 100%;
+  }
+
+  .hero__actions .btn {
+    flex: 1 1 auto;
+    min-height: 48px;
+  }
+
+  .hero__visual {
+    margin-top: var(--space-sm);
+  }
+
+  .portrait-frame {
+    max-width: 100%;
+  }
+
+  .preview-card {
+    display: none;
+  }
+}
+
+/* -----------------------------------------
+   PORTFOLIO — TABLET (600px – 1023px)
+   Fewer columns; large cards drop to spanning
+   the full width instead of 4 of 6 columns.
+------------------------------------------ */
+@media (max-width: 1023px) {
+  .portfolio {
+    padding-block: var(--space-2xl);
+  }
+
+  .portfolio__grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(200px, auto);
+  }
+
+  .project-card--large {
+    grid-column: span 4;
+    grid-row: span 2;
+  }
+
+  .project-card--wide {
+    grid-column: span 4;
+    grid-row: span 1;
+  }
+
+  .project-card--tall,
+  .project-card--standard,
+  .project-card {
+    grid-column: span 2;
+  }
+}
+
+/* -----------------------------------------
+   PORTFOLIO — MOBILE (<600px)
+   One project per row, full width, images
+   stay large. Filters wrap — never scroll.
+------------------------------------------ */
+@media (max-width: 599px) {
+  .portfolio__grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+  }
+
+  .project-card,
+  .project-card--large,
+  .project-card--wide,
+  .project-card--tall,
+  .project-card--standard {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .project-card__image-wrap {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* -----------------------------------------
+   ABOUT — TABLET (600px – 1023px)
+   Stays two columns, just tighter spacing
+   and a smaller photo, matching the Hero's
+   tablet treatment.
+------------------------------------------ */
+@media (max-width: 1023px) {
+  .about {
+    padding-block: var(--space-2xl);
+  }
+
+  .about__inner {
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: var(--space-xl);
+  }
+
+  .about__photo-frame {
+    max-width: 280px;
+  }
+}
+
+/* -----------------------------------------
+   ABOUT — MOBILE (<600px)
+   Photo stacks above the content (already
+   first in the DOM), full-width CTA for easy
+   tapping, no horizontal overflow.
+------------------------------------------ */
+@media (max-width: 599px) {
+  .about__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .about__photo-frame {
+    max-width: 100%;
+  }
+
+  .about__content {
+    width: 100%;
+  }
+
+  .about__paragraph {
+    max-width: none;
+  }
+
+  .about__cta {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .about__accent {
+    display: none;
+  }
+}
+
+/* -----------------------------------------
+   SERVICES — TABLET (600px – 1023px)
+   Two columns; featured card still spans
+   the full width.
+------------------------------------------ */
+@media (max-width: 1023px) {
+  .services {
+    padding-block: var(--space-2xl);
+  }
+
+  .services__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .service-card--featured {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .service-card--featured .service-card__number {
+    order: 0;
+  }
+}
+
+/* -----------------------------------------
+   SERVICES — MOBILE (<600px)
+   Single column so descriptions stay easy to
+   read; comfortable spacing, no overflow.
+------------------------------------------ */
+@media (max-width: 599px) {
+  .services__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-card--featured {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .service-card--featured .service-card__number {
+    order: 0;
+  }
+
+  .service-card--featured .service-card__description {
+    max-width: none;
+  }
+}
+
+/* -----------------------------------------
+   PROCESS — TABLET (600px – 1023px)
+   Two columns. Connectors are dropped here —
+   with items wrapping to a new row, a straight
+   line would cut across unrelated steps, so the
+   numbers alone carry the sequence.
+------------------------------------------ */
+@media (max-width: 1023px) {
+  .process {
+    padding-block: var(--space-2xl);
+  }
+
+  .process__grid {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: var(--space-xl);
+  }
+
+  .process-step:not(:last-child)::after {
+    display: none;
+  }
+}
+
+/* -----------------------------------------
+   PROCESS — MOBILE (<600px)
+   Single column, sequence stays obvious from
+   the step numbers alone.
+------------------------------------------ */
+@media (max-width: 599px) {
+  .process__grid {
+    grid-template-columns: 1fr;
+    row-gap: var(--space-lg);
+  }
+}
+
+/* -----------------------------------------
+   TESTIMONIALS — TABLET (600px – 1023px)
+------------------------------------------ */
+@media (max-width: 1023px) {
+  .testimonials {
+    padding-block: var(--space-2xl);
+  }
+
+  .testimonials__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* -----------------------------------------
+   TESTIMONIALS — MOBILE (<600px)
+------------------------------------------ */
+@media (max-width: 599px) {
+  .testimonials__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* -----------------------------------------
+   CONTACT — TABLET (600px – 1023px)
+------------------------------------------ */
+@media (max-width: 1023px) {
+  .contact {
+    padding-block: var(--space-2xl);
+  }
+
+  .contact__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+}
+
+/* -----------------------------------------
+   CONTACT — MOBILE (<600px)
+   Full-width submit button for easy tapping.
+------------------------------------------ */
+@media (max-width: 599px) {
+  .contact-form__submit {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* -----------------------------------------
+   FOOTER — TABLET (600px – 1023px)
+------------------------------------------ */
+@media (max-width: 1023px) {
+  .footer__inner {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer__email {
+    grid-column: 1 / -1;
+  }
+}
+
+/* -----------------------------------------
+   FOOTER — MOBILE (<600px)
+------------------------------------------ */
+@media (max-width: 599px) {
+  .footer__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+}
+
+/* -----------------------------------------
+   HERO — DARK MODE, MOBILE (<600px)
+   Swaps to the tall/small variant of Just's
+   hero image; scrim runs top-to-bottom since
+   text sits above the image on mobile instead
+   of beside it.
+------------------------------------------ */
+@media (max-width: 599px) {
+  [data-theme="dark"] .hero {
+    background-image:
+      linear-gradient(180deg, rgba(10, 8, 6, 0.7) 0%, rgba(10, 8, 6, 0.3) 35%, rgba(10, 8, 6, 0) 60%),
+      url('../assets/images/hero/hero-visual-mobile.jpg');
+    background-position: top center, bottom center;
+    /* Extra room below the text so the photo card (anchored to
+       the bottom of the image) has its own clear space instead
+       of sitting behind the paragraph/buttons */
+    padding-bottom: 480px;
+  }
+
+  [data-theme="dark"] .hero .hero__actions {
+    margin-bottom: var(--space-md);
+  }
+}

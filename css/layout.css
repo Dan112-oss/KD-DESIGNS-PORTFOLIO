@@ -1,0 +1,582 @@
+/* ==========================================================
+   LAYOUT.CSS
+   Purpose: Structural rules only — positioning, flex/grid
+   wrappers, spacing, sizing. No color or typography decisions
+   live here; those belong in components.css / variables.css.
+============================================================= */
+
+/* -----------------------------------------
+   CONTAINER
+   Shared width wrapper used across the site.
+------------------------------------------ */
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+
+/* -----------------------------------------
+   SITE HEADER
+------------------------------------------ */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  padding-block: var(--space-md);
+}
+
+/* Logo sits on the far left, sized by its own component rule */
+.nav-logo {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* -----------------------------------------
+   PRIMARY NAVIGATION (desktop)
+   Centered/right-aligned link cluster between
+   the logo and the CTA.
+------------------------------------------ */
+.site-nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.site-nav__list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+/* CTA sits at the far right, after the nav links */
+.site-header__cta {
+  flex-shrink: 0;
+}
+
+/* -----------------------------------------
+   MOBILE NAV TOGGLE (hamburger)
+   Hidden on desktop by default; shown via
+   responsive.css at the mobile breakpoint.
+------------------------------------------ */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+
+.nav-toggle__bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+}
+
+/* -----------------------------------------
+   MOBILE NAV PANEL
+   Structural positioning only; look/feel in
+   components.css, visibility rules in
+   responsive.css.
+------------------------------------------ */
+.mobile-nav {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 90;
+  max-height: calc(100vh - 100%);
+  overflow-y: auto;
+}
+
+.mobile-nav__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-lg) var(--container-padding);
+}
+
+.mobile-nav__cta {
+  display: inline-flex;
+  margin: 0 var(--container-padding) var(--space-lg);
+}
+
+/* -----------------------------------------
+   HERO SECTION
+------------------------------------------ */
+.hero__inner {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
+  gap: var(--space-2xl);
+  padding-block: var(--space-2xl);
+  min-height: 0;
+}
+
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-md);
+}
+
+.hero__eyebrow {
+  margin-bottom: var(--space-xs);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+/* Visual column: portrait plus reserved space for preview cards */
+.hero__visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.portrait-frame {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 4 / 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+}
+
+.portrait-frame__icon {
+  width: 48px;
+  height: 48px;
+}
+
+/* Small reserved frames for future work-preview imagery */
+.preview-card {
+  position: absolute;
+  width: 96px;
+  height: 96px;
+}
+
+.preview-card--one {
+  top: -24px;
+  left: -24px;
+}
+
+.preview-card--two {
+  bottom: -20px;
+  right: -20px;
+}
+
+/* -----------------------------------------
+   PORTFOLIO SECTION
+------------------------------------------ */
+.portfolio {
+  padding-block: var(--space-3xl);
+}
+
+.portfolio__header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  max-width: 640px;
+  margin-bottom: var(--space-xl);
+}
+
+/* -----------------------------------------
+   FILTERS
+   Wrap instead of scrolling horizontally, so
+   mobile never gets horizontal overflow.
+------------------------------------------ */
+.portfolio__filters {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xl);
+}
+
+.filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.filter-group[hidden] {
+  display: none;
+}
+
+/* -----------------------------------------
+   PROJECT GRID
+   Bento-style grid: cards span different
+   column/row amounts based on project.size,
+   packed densely to avoid gaps.
+------------------------------------------ */
+.portfolio__grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: minmax(220px, auto);
+  grid-auto-flow: dense;
+  gap: var(--space-md);
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  grid-column: span 2;
+  grid-row: span 1;
+}
+
+.project-card[hidden] {
+  display: none;
+}
+
+.project-card--large {
+  grid-column: span 4;
+  grid-row: span 2;
+}
+
+.project-card--wide {
+  grid-column: span 4;
+  grid-row: span 1;
+}
+
+.project-card--tall {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.project-card--standard {
+  grid-column: span 2;
+  grid-row: span 1;
+}
+
+.project-card__image-wrap {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+}
+
+.project-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-card__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-xs);
+  padding-top: var(--space-sm);
+}
+
+/* -----------------------------------------
+   ABOUT SECTION
+   Visual (photo) on the left, content on the
+   right — mirrors the Hero's two-column pattern
+   without reusing its classes.
+------------------------------------------ */
+.about {
+  padding-block: var(--space-3xl);
+}
+
+.about__inner {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  align-items: center;
+  gap: var(--space-2xl);
+}
+
+.about__visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.about__photo-frame {
+  width: 100%;
+  max-width: 360px;
+}
+
+.about__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.about__accent {
+  top: -20px;
+  right: -20px;
+}
+
+.about__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-md);
+}
+
+.about__paragraph:first-of-type {
+  margin-top: 0;
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.about__cta {
+  margin-top: var(--space-xs);
+}
+
+/* -----------------------------------------
+   SERVICES SECTION
+   Featured first service spans the full row;
+   the remaining four sit in an even row below —
+   a deliberate composition rather than a plain
+   uniform card grid.
+------------------------------------------ */
+.services {
+  padding-block: var(--space-3xl);
+}
+
+.services__header {
+  max-width: 640px;
+  margin-bottom: var(--space-xl);
+}
+
+.services__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+}
+
+.service-card {
+  grid-column: span 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+}
+
+.service-card--featured {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-xl);
+}
+
+.service-card--featured .service-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.service-card--featured .service-card__number {
+  order: -1;
+}
+
+.service-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+}
+
+.service-card__icon-svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* -----------------------------------------
+   PROCESS SECTION
+   Four steps in a row, connected by a thin
+   line drawn across each gap (not under the
+   steps themselves) using a pseudo-element
+   sized to match the grid gap exactly.
+------------------------------------------ */
+.process {
+  padding-block: var(--space-3xl);
+}
+
+.process__header {
+  max-width: 640px;
+  margin-bottom: var(--space-xl);
+}
+
+.process__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+}
+
+.process-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-xs);
+}
+
+.process-step__number-row {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  margin-bottom: var(--space-xs);
+}
+
+/* Connector: fills the grid gap between this step
+   and the next one. Matches --space-lg exactly so
+   it lines up flush with no visible seam. */
+.process-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 24px;
+  left: 100%;
+  width: var(--space-lg);
+  height: 2px;
+  transform: translateY(-50%);
+}
+
+/* -----------------------------------------
+   TESTIMONIALS SECTION
+------------------------------------------ */
+.testimonials {
+  padding-block: var(--space-3xl);
+}
+
+.testimonials__header {
+  max-width: 640px;
+  margin-bottom: var(--space-xl);
+}
+
+.testimonials__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+.testimonial-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+}
+
+.testimonial-card__quote-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.testimonial-card__footer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-xs);
+}
+
+.testimonial-card__avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.testimonial-card__meta {
+  display: flex;
+  flex-direction: column;
+}
+
+/* -----------------------------------------
+   CONTACT SECTION
+   Two columns: intro/email on the left,
+   form on the right — same pattern as About,
+   with its own class names.
+------------------------------------------ */
+.contact {
+  padding-block: var(--space-3xl);
+}
+
+.contact__inner {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: var(--space-2xl);
+}
+
+.contact__header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.contact-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.contact-form__submit {
+  align-self: flex-start;
+  margin-top: var(--space-xs);
+}
+
+/* -----------------------------------------
+   FOOTER
+------------------------------------------ */
+.footer__inner {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr auto;
+  align-items: start;
+  gap: var(--space-xl);
+  padding-block: var(--space-2xl);
+}
+
+.footer__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-xs);
+}
+
+.footer__nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.footer__bottom {
+  padding-block: var(--space-md);
+}

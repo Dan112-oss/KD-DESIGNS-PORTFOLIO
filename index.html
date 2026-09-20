@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KD Designs | Visual Designer Portfolio</title>
+
+  <!-- Set the theme before first paint, so there's no flash of the
+       wrong theme. Kept tiny and inline on purpose — this is the
+       one script that must run before CSS renders, not after. -->
+  <script>
+    (function () {
+      var stored = localStorage.getItem('kd-theme');
+      var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
+
+  <!-- Brand typeface: Plus Jakarta Sans (Google Fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets: order matters (reset -> variables -> layout -> components -> responsive) -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- ==========================================================
+       HEADER / NAVBAR
+  ============================================================= -->
+  <header id="header" class="site-header">
+    <div class="container site-header__inner">
+
+      <a href="#" class="nav-logo" aria-label="KD Designs home">
+        <img
+          src="assets/images/kd-logo-light-bg.png"
+          data-light-src="assets/images/kd-logo-light-bg.png"
+          data-dark-src="assets/images/kd-logo-dark-bg.png"
+          alt="KD Designs logo"
+          class="nav-logo__image theme-logo"
+          width="1500"
+          height="500"
+        >
+      </a>
+
+      <nav class="site-nav" aria-label="Primary">
+        <ul class="site-nav__list">
+          <li><a href="#hero" class="site-nav__link">Home</a></li>
+          <li><a href="#portfolio" class="site-nav__link">Work</a></li>
+          <li><a href="#services" class="site-nav__link">Services</a></li>
+          <li><a href="#about" class="site-nav__link">About</a></li>
+          <li><a href="#contact" class="site-nav__link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <a href="#contact" class="btn btn--primary site-header__cta">Let's Work</a>
+
+      <button
+        type="button"
+        class="theme-toggle"
+        id="themeToggle"
+        aria-label="Switch to dark mode"
+      >
+        <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path>
+        </svg>
+        <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"></circle>
+          <line x1="12" y1="2" x2="12" y2="4.5"></line>
+          <line x1="12" y1="19.5" x2="12" y2="22"></line>
+          <line x1="4.2" y1="4.2" x2="6" y2="6"></line>
+          <line x1="18" y1="18" x2="19.8" y2="19.8"></line>
+          <line x1="2" y1="12" x2="4.5" y2="12"></line>
+          <line x1="19.5" y1="12" x2="22" y2="12"></line>
+          <line x1="4.2" y1="19.8" x2="6" y2="18"></line>
+          <line x1="18" y1="6" x2="19.8" y2="4.2"></line>
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        class="nav-toggle"
+        id="navToggle"
+        aria-expanded="false"
+        aria-controls="mobileNav"
+        aria-label="Open menu"
+      >
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+      </button>
+
+    </div>
+
+    <div class="mobile-nav" id="mobileNav" hidden>
+      <nav aria-label="Mobile">
+        <ul class="mobile-nav__list">
+          <li><a href="#hero" class="mobile-nav__link">Home</a></li>
+          <li><a href="#portfolio" class="mobile-nav__link">Work</a></li>
+          <li><a href="#services" class="mobile-nav__link">Services</a></li>
+          <li><a href="#about" class="mobile-nav__link">About</a></li>
+          <li><a href="#contact" class="mobile-nav__link">Contact</a></li>
+        </ul>
+        <a href="#contact" class="btn btn--primary mobile-nav__cta">Let's Work</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ==========================================================
+         HERO SECTION
+    ============================================================= -->
+    <section id="hero" class="hero">
+      <div class="container hero__inner">
+
+        <div class="hero__content">
+          <p class="hero__eyebrow">
+            <span class="hero__eyebrow-dot" aria-hidden="true"></span>
+            Visual Designer • Graphic + Web Design
+          </p>
+
+          <h1 class="hero__headline">Visual design that makes brands stand out.</h1>
+
+          <p class="hero__paragraph">
+            I create graphic design, brand visuals, and websites for businesses
+            that want to communicate clearly and look their best doing it —
+            from logos and brand assets to full website experiences, designed
+            with intention.
+          </p>
+
+          <div class="hero__actions">
+            <a href="#portfolio" class="btn btn--primary">View My Work</a>
+            <a href="#contact" class="btn btn--secondary">Let's Work</a>
+          </div>
+        </div>
+
+        <div class="hero__visual">
+          <div class="portrait-frame">
+            <!-- Real portrait to be added later; placeholder only -->
+            <svg class="portrait-frame__icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="8" r="4"></circle>
+              <path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8"></path>
+            </svg>
+            <span class="portrait-frame__label">Portrait photo goes here</span>
+          </div>
+
+          <!-- Reserved space for selected work previews, added in a later phase -->
+          <div class="preview-card preview-card--one" aria-hidden="true"></div>
+          <div class="preview-card preview-card--two" aria-hidden="true"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         PROCESS SECTION
+    ============================================================= -->
+    <section id="process" class="process">
+      <div class="container">
+
+        <div class="process__header">
+          <p class="eyebrow">
+            <span class="eyebrow__dot" aria-hidden="true"></span>
+            How I Work
+          </p>
+          <h2 class="section-heading">A simple process from idea to final design.</h2>
+          <p class="section-lede">
+            I keep the design process clear and organized, from
+            understanding your needs to delivering the final result.
+          </p>
+        </div>
+
+        <div class="process__grid">
+
+          <article class="process-step" tabindex="0">
+            <div class="process-step__number-row">
+              <span class="process-step__number">01</span>
+            </div>
+            <h3 class="process-step__title">Discovery</h3>
+            <p class="process-step__description">
+              First, I learn about your brand, goals, audience, and the type
+              of design you need.
+            </p>
+          </article>
+
+          <article class="process-step" tabindex="0">
+            <div class="process-step__number-row">
+              <span class="process-step__number">02</span>
+            </div>
+            <h3 class="process-step__title">Direction</h3>
+            <p class="process-step__description">
+              I define the visual direction, layout, style, and key elements
+              needed for the project.
+            </p>
+          </article>
+
+          <article class="process-step" tabindex="0">
+            <div class="process-step__number-row">
+              <span class="process-step__number">03</span>
+            </div>
+            <h3 class="process-step__title">Design</h3>
+            <p class="process-step__description">
+              I develop the design and refine the details based on the
+              project requirements and feedback.
+            </p>
+          </article>
+
+          <article class="process-step" tabindex="0">
+            <div class="process-step__number-row">
+              <span class="process-step__number">04</span>
+            </div>
+            <h3 class="process-step__title">Delivery</h3>
+            <p class="process-step__description">
+              After final adjustments, I prepare and deliver the completed
+              design in the required format.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         PORTFOLIO SECTION
+    ============================================================= -->
+    <section id="portfolio" class="portfolio">
+      <div class="container">
+
+        <div class="portfolio__header">
+          <p class="eyebrow">
+            <span class="eyebrow__dot" aria-hidden="true"></span>
+            Selected Work
+          </p>
+          <h2 class="section-heading">Designs built to communicate, connect, and stand out.</h2>
+          <p class="section-lede">
+            A collection of graphic and web design work — from brand visuals
+            to full website experiences. Browse by category below.
+          </p>
+        </div>
+
+        <!-- ==========================================================
+             CATEGORY FILTERS
+             Static markup (categories are fixed); portfolio.js only
+             handles show/hide behavior and active states.
+        ============================================================= -->
+        <div class="portfolio__filters">
+
+          <div class="filter-group" id="primaryFilters" role="group" aria-label="Filter by discipline">
+            <button type="button" class="filter-btn is-active" data-filter-primary="all" aria-pressed="true">All</button>
+            <button type="button" class="filter-btn" data-filter-primary="graphic-design" aria-pressed="false">Graphic Design</button>
+            <button type="button" class="filter-btn" data-filter-primary="web-design" aria-pressed="false">Web Design</button>
+          </div>
+
+          <div class="filter-group filter-group--sub" id="graphicSubFilters" role="group" aria-label="Filter by graphic design type" hidden>
+            <button type="button" class="filter-chip" data-filter-sub="flyers" aria-pressed="false">Flyers</button>
+            <button type="button" class="filter-chip" data-filter-sub="branding" aria-pressed="false">Branding</button>
+            <button type="button" class="filter-chip" data-filter-sub="logos" aria-pressed="false">Logos</button>
+            <button type="button" class="filter-chip" data-filter-sub="social-media" aria-pressed="false">Social Media Designs</button>
+            <button type="button" class="filter-chip" data-filter-sub="event-design" aria-pressed="false">Event Designs</button>
+            <button type="button" class="filter-chip" data-filter-sub="brochures" aria-pressed="false">Brochures</button>
+          </div>
+
+          <div class="filter-group filter-group--sub" id="webSubFilters" role="group" aria-label="Filter by web design type" hidden>
+            <button type="button" class="filter-chip" data-filter-sub="landing-pages" aria-pressed="false">Landing Pages</button>
+            <button type="button" class="filter-chip" data-filter-sub="business-websites" aria-pressed="false">Business Websites</button>
+            <button type="button" class="filter-chip" data-filter-sub="ecommerce" aria-pressed="false">E-commerce</button>
+            <button type="button" class="filter-chip" data-filter-sub="dashboard-ui" aria-pressed="false">Dashboard UI</button>
+            <button type="button" class="filter-chip" data-filter-sub="mobile-ui" aria-pressed="false">Mobile UI</button>
+          </div>
+
+          <p class="visually-hidden" id="portfolioStatus" aria-live="polite"></p>
+        </div>
+
+        <!-- Project cards are rendered here by portfolio.js from the
+             PORTFOLIO_PROJECTS data array — see js/portfolio.js -->
+        <div class="portfolio__grid" id="portfolioGrid"></div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         ABOUT SECTION
+    ============================================================= -->
+    <section id="about" class="about">
+      <div class="container about__inner">
+
+        <div class="about__visual">
+          <div class="portrait-frame about__photo-frame">
+            <img
+              src="assets/images/kd-profile.jpg"
+              alt="Profile photo placeholder — replace with a real photo"
+              class="about__photo"
+              loading="lazy"
+            >
+          </div>
+          <div class="preview-card about__accent" aria-hidden="true"></div>
+        </div>
+
+        <div class="about__content">
+          <p class="eyebrow">
+            <span class="eyebrow__dot" aria-hidden="true"></span>
+            About Me
+          </p>
+
+          <h2 class="section-heading">Designing visuals that help brands communicate clearly.</h2>
+
+          <p class="about__paragraph">
+            I'm a visual designer focused on graphic design and web design. I
+            create clean, purposeful visuals for brands, businesses, and
+            digital products, with attention to layout, typography, color,
+            and user experience.
+          </p>
+
+          <p class="about__paragraph">
+            My approach combines strong visual direction with practical
+            design thinking, helping each project look professional while
+            communicating its message clearly.
+          </p>
+
+          <ul class="skills-list">
+            <li class="skills-list__item">Graphic Design</li>
+            <li class="skills-list__item">Web Design</li>
+            <li class="skills-list__item">Branding</li>
+            <li class="skills-list__item">UI Design</li>
+            <li class="skills-list__item">Visual Identity</li>
+          </ul>
+
+          <a href="#contact" class="btn btn--primary about__cta">Let's Work Together</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         SERVICES SECTION
+    ============================================================= -->
+    <section id="services" class="services">
+      <div class="container">
+
+        <div class="services__header">
+          <p class="eyebrow">
+            <span class="eyebrow__dot" aria-hidden="true"></span>
+            My Services
+          </p>
+          <h2 class="section-heading">Design solutions built around your brand.</h2>
+          <p class="section-lede">
+            I provide visual and digital design services focused on helping
+            brands present themselves clearly, professionally, and
+            consistently.
+          </p>
+        </div>
+
+        <div class="services__grid">
+
+          <article class="service-card service-card--featured" tabindex="0">
+            <span class="service-card__number" aria-hidden="true">01</span>
+            <div class="service-card__icon">
+              <svg class="service-card__icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="3" width="12" height="12" rx="2"></rect>
+                <circle cx="16" cy="16" r="5"></circle>
+              </svg>
+            </div>
+            <div class="service-card__body">
+              <h3 class="service-card__title">Graphic Design</h3>
+              <p class="service-card__description">
+                Professional visual designs for flyers, posters, social media
+                graphics, promotional materials, and other brand
+                communications.
+              </p>
+            </div>
+          </article>
+
+          <article class="service-card" tabindex="0">
+            <span class="service-card__number" aria-hidden="true">02</span>
+            <div class="service-card__icon">
+              <svg class="service-card__icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+                <line x1="3" y1="9" x2="21" y2="9"></line>
+              </svg>
+            </div>
+            <h3 class="service-card__title">Web Design</h3>
+            <p class="service-card__description">
+              Clean, responsive website designs focused on strong visual
+              presentation, usability, and a smooth experience across
+              devices.
+            </p>
+          </article>
+
+          <article class="service-card" tabindex="0">
+            <span class="service-card__number" aria-hidden="true">03</span>
+            <div class="service-card__icon">
+              <svg class="service-card__icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M11 3H4v7l10 10 7-7L11 3z"></path>
+                <circle cx="7.5" cy="7.5" r="1.2"></circle>
+              </svg>
+            </div>
+            <h3 class="service-card__title">Branding</h3>
+            <p class="service-card__description">
+              Visual identity systems that help businesses build a
+              consistent and recognizable presence.
+            </p>
+          </article>
+
+          <article class="service-card" tabindex="0">
+            <span class="service-card__number" aria-hidden="true">04</span>
+            <div class="service-card__icon">
+              <svg class="service-card__icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3 2 8l10 5 10-5-10-5z"></path>
+                <path d="M2 14l10 5 10-5"></path>
+              </svg>
+            </div>
+            <h3 class="service-card__title">UI Design</h3>
+            <p class="service-card__description">
+              Modern interface designs for websites and digital products,
+              with attention to layout, typography, hierarchy, and
+              usability.
+            </p>
+          </article>
+
+          <article class="service-card" tabindex="0">
+            <span class="service-card__number" aria-hidden="true">05</span>
+            <div class="service-card__icon">
+              <svg class="service-card__icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="5" cy="12" r="2.2"></circle>
+                <circle cx="18" cy="6" r="2.2"></circle>
+                <circle cx="18" cy="18" r="2.2"></circle>
+                <line x1="7" y1="11" x2="16" y2="7"></line>
+                <line x1="7" y1="13" x2="16" y2="17"></line>
+              </svg>
+            </div>
+            <h3 class="service-card__title">Social Media Design</h3>
+            <p class="service-card__description">
+              Engaging social media visuals designed to keep your brand
+              consistent across digital platforms.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         TESTIMONIALS SECTION
+    ============================================================= -->
+    <section id="testimonials" class="testimonials">
+      <div class="container">
+
+        <div class="testimonials__header">
+          <p class="eyebrow">
+            <span class="eyebrow__dot" aria-hidden="true"></span>
+            Testimonials
+          </p>
+          <h2 class="section-heading">What clients say about working with me.</h2>
+          <p class="section-lede">
+            Feedback from people I've collaborated with on design projects.
+          </p>
+        </div>
+
+        <!-- Cards are rendered here by js/testimonials.js from the
+             TESTIMONIALS_DATA array — see that file to replace the
+             sample entries with real client testimonials. -->
+        <div class="testimonials__grid" id="testimonialsGrid"></div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         CONTACT SECTION
+    ============================================================= -->
+    <section id="contact" class="contact">
+      <div class="container contact__inner">
+
+        <div class="contact__header">
+          <p class="eyebrow">
+            <span class="eyebrow__dot" aria-hidden="true"></span>
+            Contact
+          </p>
+          <h2 class="section-heading">Let's start your next project.</h2>
+          <p class="section-lede">
+            Have a project in mind? Send a message and I'll get back to you.
+          </p>
+          <a href="mailto:kd0960336@gmail.com" class="contact__email-link">kd0960336@gmail.com</a>
+        </div>
+
+        <form class="contact-form" id="contactForm" novalidate>
+
+          <div class="contact-form__field">
+            <label for="contactName" class="contact-form__label">Name</label>
+            <input type="text" id="contactName" name="name" class="contact-form__input" autocomplete="name" required>
+            <span class="contact-form__error" id="contactNameError" role="alert"></span>
+          </div>
+
+          <div class="contact-form__field">
+            <label for="contactEmail" class="contact-form__label">Email</label>
+            <input type="email" id="contactEmail" name="email" class="contact-form__input" autocomplete="email" required>
+            <span class="contact-form__error" id="contactEmailError" role="alert"></span>
+          </div>
+
+          <div class="contact-form__field">
+            <label for="contactMessage" class="contact-form__label">Message</label>
+            <textarea id="contactMessage" name="message" class="contact-form__textarea" rows="5" required></textarea>
+            <span class="contact-form__error" id="contactMessageError" role="alert"></span>
+          </div>
+
+          <button type="submit" class="btn btn--primary contact-form__submit">Send Message</button>
+
+          <p class="contact-form__status" id="contactStatus" role="status" aria-live="polite"></p>
+        </form>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================
+       FOOTER
+  ============================================================= -->
+  <footer id="footer" class="site-footer">
+    <div class="container footer__inner">
+
+      <div class="footer__brand">
+        <img
+          src="assets/images/kd-logo-light-bg.png"
+          data-light-src="assets/images/kd-logo-light-bg.png"
+          data-dark-src="assets/images/kd-logo-dark-bg.png"
+          alt="KD Designs logo"
+          class="footer__logo theme-logo"
+          width="1500"
+          height="500"
+        >
+        <p class="footer__tagline">Visual design that helps brands communicate clearly.</p>
+      </div>
+
+      <nav class="footer__nav" aria-label="Footer">
+        <a href="#hero" class="footer__link">Home</a>
+        <a href="#portfolio" class="footer__link">Work</a>
+        <a href="#services" class="footer__link">Services</a>
+        <a href="#about" class="footer__link">About</a>
+        <a href="#contact" class="footer__link">Contact</a>
+      </nav>
+
+      <a href="mailto:kd0960336@gmail.com" class="footer__email">kd0960336@gmail.com</a>
+
+    </div>
+
+    <div class="container footer__bottom">
+      <p class="footer__copyright">© <span id="footerYear"></span> KD Designs. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts: loaded at the end of body for performance -->
+  <script src="js/nav.js"></script>
+  <script src="js/portfolio.js"></script>
+  <script src="js/testimonials.js"></script>
+  <script src="js/contact.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>
