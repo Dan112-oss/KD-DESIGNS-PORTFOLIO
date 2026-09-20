@@ -275,15 +275,12 @@ body {
   color: var(--color-text-secondary);
 }
 
-.portrait-frame__icon {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.5;
-}
-
-.portrait-frame__label {
-  font-family: var(--font-secondary);
-  font-size: var(--font-size-sm);
+.portrait-frame__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  display: block;
 }
 
 /* Reserved work-preview frames — empty until Portfolio phase */
