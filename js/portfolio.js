@@ -49,23 +49,23 @@ const PORTFOLIO_PROJECTS = [
   },
   {
     id: 'sample-03',
-    name: 'SAMPLE — Replace with real project name',
+    name: 'Business flyer',
     category: 'graphic-design',
     subcategory: 'flyers',
-    description: 'SAMPLE — replace with a short, honest description of this flyer project.',
+    description: 'Designed a vibrant, professional promotional flyer for Famous Cyndi Hair Beauty, featuring a curated product showcase grid, clear call-to-action elements, and brand contact details.',
     image: 'assets/images/projects/project-03.jpg', // REPLACE
     url: '#', // REPLACE with real case-study URL
-    size: 'standard'
+    size: 'wide'
   },
   {
     id: 'sample-04',
-    name: 'SAMPLE — Replace with real project name',
-    category: 'web-design',
-    subcategory: 'ecommerce',
-    description: 'SAMPLE — replace with a short, honest description of this e-commerce project.',
+    name: 'Logo Design',
+    category: 'graphic-design',
+    subcategory: 'logos',
+    description: 'Designed a sophisticated, embossed logo mockup for Isaac Interiors featuring a custom monogram logo and the brand tagline Transforming your space..',
     image: 'assets/images/projects/project-04.jpg', // REPLACE
     url: '#', // REPLACE with real case-study URL
-    size: 'tall'
+    size: 'standard'
   },
   {
     id: 'sample-05',
