@@ -46,17 +46,16 @@
 
   /* -----------------------------------------
      TYPOGRAPHY — KD Designs brand
-     Single family (Plus Jakarta Sans) used across
-     the whole site — headings and body both pull
-     from --font-primary, with weight doing the work
-     of hierarchy rather than mixing typefaces. Loaded
-     via Google Fonts in index.html <head>. Chosen for
-     a clean, modern, geometric-humanist feel that reads
-     well as both a graphic-design and web-design
-     portfolio without leaning on a generic default pairing.
+     Three-font tech system, loaded via Google Fonts in
+     index.html <head>:
+       --font-primary    Space Grotesk   headlines, buttons, numbers
+       --font-secondary  IBM Plex Sans   body copy and paragraphs
+       --font-mono       JetBrains Mono  small labels, nav, tags
+     Space Grotesk tops out at weight 700, so the "extrabold"
+     token below maps to 700 on purpose.
   ------------------------------------------ */
-  --font-primary: 'Plus Jakarta Sans', sans-serif;
-  --font-secondary: 'Plus Jakarta Sans', sans-serif;
+  --font-primary: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  --font-secondary: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
 
   /* TECH LAYER: monospace for small labels, numbers and
      status text only. Headlines and body stay Plus Jakarta Sans. */
@@ -75,7 +74,7 @@
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
-  --font-weight-extrabold: 800;  /* reserved for hero-scale headlines */
+  --font-weight-extrabold: 700;  /* Space Grotesk max weight; reserved for hero-scale headlines */
 
   /* -----------------------------------------
      SPACING SCALE

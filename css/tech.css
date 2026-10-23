@@ -1,5 +1,5 @@
 /* ==========================================================
-   TECH.CSS  (Phases 1-7)
+   TECH.CSS  (Phases 1-8)
    Purpose: The "tech" layer on top of the existing design.
    Loads after components.css and only adds or overrides
    details: monospace labels, glow, hairlines, pulse, scrollbar.
@@ -801,4 +801,54 @@ h1, h2, h3, h4 {
   font-family: var(--font-mono);
   font-size: var(--font-size-xs);
   letter-spacing: 0.04em;
+}
+
+/* ==========================================================
+   PHASE 8: HERO TYPING LINE + MAGNETIC BUTTONS
+============================================================= */
+.hero__typed {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 1.8em;
+  margin: 0 0 var(--space-md);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.04em;
+  color: var(--color-text-primary);
+}
+
+.hero__typed-prompt {
+  color: var(--color-primary);
+}
+
+.hero__typed-cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.1em;
+  margin-left: -4px;
+  background: var(--color-primary);
+  animation: kd-blink 1s steps(1) infinite;
+}
+
+/* Same entrance as the rest of the hero text (keyframes live in components.css) */
+@media (prefers-reduced-motion: no-preference) {
+  .hero__typed {
+    animation: hero-fade-up 0.6s ease-out both;
+    animation-delay: 0.2s;
+  }
+}
+
+html.kd-booting .hero__typed {
+  animation-play-state: paused;
+}
+
+/* Magnetic buttons: ease the "translate" set by js/magnetic.js */
+.btn,
+.btn--primary {
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    background var(--transition-base),
+    translate 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
 }

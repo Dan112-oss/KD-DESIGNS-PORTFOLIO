@@ -57,4 +57,12 @@ document.addEventListener('DOMContentLoaded', function () {
   if (window.KD && typeof KD.initHud === 'function') {
     KD.initHud();
   }
+
+  // Phase 8: text effects (headings, nav, hero typing) + magnetic buttons
+  if (window.KD && typeof KD.initTechText === 'function') {
+    KD.initTechText();
+  }
+  if (window.KD && typeof KD.initMagnetic === 'function') {
+    KD.initMagnetic();
+  }
 });
