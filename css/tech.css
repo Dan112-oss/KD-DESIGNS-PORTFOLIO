@@ -1,5 +1,5 @@
 /* ==========================================================
-   TECH.CSS  (Phase 1 + 2 + 3)
+   TECH.CSS  (Phases 1-4)
    Purpose: The "tech" layer on top of the existing design.
    Loads after components.css and only adds or overrides
    details: monospace labels, glow, hairlines, pulse, scrollbar.
@@ -313,4 +313,241 @@ html.kd-cursor-on [contenteditable="true"] {
 .kd-cursor-ring[data-state="view"] .kd-cursor-ring__label {
   opacity: 1;
   transform: scale(1);
+}
+
+/* ==========================================================
+   PHASE 4: SECTION DETAILS
+   Marquee, process connector draw, card border sweep,
+   corner brackets on images, optional stats strip.
+============================================================= */
+
+/* -----------------------------------------
+   MARQUEE
+------------------------------------------ */
+.marquee {
+  overflow: hidden;
+  border-block: var(--hairline);
+  padding-block: var(--space-sm);
+  background: rgba(215, 112, 1, 0.05);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.marquee__track {
+  display: flex;
+  width: max-content;
+}
+
+.marquee__group {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--space-lg);
+  padding-right: var(--space-lg);
+  margin: 0;
+  list-style: none;
+}
+
+.marquee__group li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-text-secondary);
+}
+
+.marquee__group li::after {
+  content: "//";
+  color: var(--color-primary);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .marquee__track {
+    animation: kd-marquee 30s linear infinite;
+  }
+
+  .marquee:hover .marquee__track {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes kd-marquee {
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track {
+    width: auto;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .marquee__group:nth-child(2) {
+    display: none;
+  }
+}
+
+/* -----------------------------------------
+   PROCESS CONNECTOR DRAW
+   js/tech-motion.js animates --kd-line from 0 to 1.
+   Defaults to 1, so the lines show fully without JS.
+------------------------------------------ */
+.process-step:not(:last-child)::after {
+  transform: translateY(-50%) scaleX(var(--kd-line, 1));
+  transform-origin: left center;
+}
+
+/* -----------------------------------------
+   CARD BORDER SWEEP
+   A bright arc of the brand orange runs around the card edge on
+   hover. Browsers without @property support simply keep the
+   existing hover border colour.
+------------------------------------------ */
+@property --kd-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.service-card,
+.testimonial-card {
+  position: relative;
+}
+
+.service-card::before,
+.testimonial-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  padding: 1.5px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--kd-angle),
+    transparent 0%,
+    transparent 60%,
+    #D77001 80%,
+    #F3A42C 95%,
+    transparent 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.service-card:hover::before,
+.service-card:focus-visible::before,
+.testimonial-card:hover::before,
+.testimonial-card:focus-visible::before {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .service-card:hover::before,
+  .service-card:focus-visible::before,
+  .testimonial-card:hover::before,
+  .testimonial-card:focus-visible::before {
+    animation: kd-sweep 2.6s linear infinite;
+  }
+}
+
+@keyframes kd-sweep {
+  to { --kd-angle: 360deg; }
+}
+
+/* -----------------------------------------
+   CORNER BRACKETS on project images + About photo
+   Same look as the .tech-corners utility; they tighten in on hover.
+------------------------------------------ */
+.project-card__image-wrap,
+.about__photo-frame {
+  position: relative;
+}
+
+.project-card__image-wrap::before,
+.project-card__image-wrap::after,
+.about__photo-frame::before,
+.about__photo-frame::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--color-primary);
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 2;
+  transition: top 0.35s ease, left 0.35s ease, bottom 0.35s ease, right 0.35s ease, opacity 0.35s ease;
+}
+
+.project-card__image-wrap::before,
+.about__photo-frame::before {
+  top: 12px;
+  left: 12px;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.project-card__image-wrap::after,
+.about__photo-frame::after {
+  bottom: 12px;
+  right: 12px;
+  border-left: 0;
+  border-top: 0;
+}
+
+.project-card:hover .project-card__image-wrap::before {
+  top: 8px;
+  left: 8px;
+  opacity: 1;
+}
+
+.project-card:hover .project-card__image-wrap::after {
+  bottom: 8px;
+  right: 8px;
+  opacity: 1;
+}
+
+/* -----------------------------------------
+   OPTIONAL STATS STRIP (markup is commented out in index.html)
+------------------------------------------ */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+  margin: var(--space-lg) 0 0;
+  padding: var(--space-md) 0 0;
+  list-style: none;
+  border-top: var(--hairline);
+}
+
+.stats__item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stats__value {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.stats__label {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
 }

@@ -47,4 +47,9 @@ document.addEventListener('DOMContentLoaded', function () {
   if (window.KD && typeof KD.initAnimations === 'function') {
     KD.initAnimations();
   }
+
+  // Phase 4: process lines, counters (after the reveal animations)
+  if (window.KD && typeof KD.initTechMotion === 'function') {
+    KD.initTechMotion();
+  }
 });
