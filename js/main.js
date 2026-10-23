@@ -31,6 +31,16 @@ document.addEventListener('DOMContentLoaded', function () {
     footerYear.textContent = new Date().getFullYear();
   }
 
+  // Phase 2: animated hero grid + headline decode
+  if (window.KD && typeof KD.initHeroTech === 'function') {
+    KD.initHeroTech();
+  }
+
+  // Phase 3: animated cursor (mouse devices only)
+  if (window.KD && typeof KD.initCursor === 'function') {
+    KD.initCursor();
+  }
+
   // Runs last: reveal animations and the Portfolio tilt effect
   // need the Portfolio/Testimonials cards to already exist in
   // the DOM, which the two init calls above just created.

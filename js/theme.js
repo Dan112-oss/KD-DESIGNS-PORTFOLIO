@@ -5,6 +5,8 @@
    index.html's <head> (before first paint, to avoid a flash of
    the wrong theme) — this file only handles the toggle button,
    persisting the choice, and swapping theme-aware logo images.
+   Dark is the default theme. It only changes when the visitor
+   clicks the toggle (their choice is then remembered).
    All color changes themselves happen in CSS via variables.css.
 ============================================================= */
 
@@ -51,11 +53,4 @@ KD.initTheme = function initTheme() {
       applyTheme(currentTheme() === 'dark' ? 'light' : 'dark');
     });
   }
-
-  // If the visitor hasn't chosen explicitly, follow the OS theme live
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (event) {
-    if (!localStorage.getItem('kd-theme')) {
-      applyTheme(event.matches ? 'dark' : 'light');
-    }
-  });
 };

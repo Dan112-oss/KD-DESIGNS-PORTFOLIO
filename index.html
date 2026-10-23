@@ -11,7 +11,7 @@
   <script>
     (function () {
       var stored = localStorage.getItem('kd-theme');
-      var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      var theme = stored || 'dark'; // dark-first: the tech look is the default
       document.documentElement.setAttribute('data-theme', theme);
     })();
   </script>
@@ -19,13 +19,14 @@
   <!-- Brand typeface: Plus Jakarta Sans (Google Fonts) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Stylesheets: order matters (reset -> variables -> layout -> components -> responsive) -->
+  <!-- Stylesheets: order matters (reset -> variables -> layout -> components -> tech -> responsive) -->
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/tech.css">
   <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
@@ -117,6 +118,8 @@
          HERO SECTION
     ============================================================= -->
     <section id="hero" class="hero">
+      <!-- Phase 2: animated dot-grid background (drawn by js/hero-tech.js) -->
+      <canvas class="hero__grid" id="heroGrid" aria-hidden="true"></canvas>
       <div class="container hero__inner">
 
         <div class="hero__content">
@@ -125,7 +128,7 @@
             Visual Designer • Graphic + Web Design
           </p>
 
-          <h1 class="hero__headline">Visual design that makes brands stand out.</h1>
+          <h1 class="hero__headline">Visual design that makes brands <span class="hero__headline-accent">stand out.</span></h1>
 
           <p class="hero__paragraph">
             I create graphic design, brand visuals, and websites for businesses
@@ -566,6 +569,8 @@
   <script src="js/testimonials.js"></script>
   <script src="js/contact.js"></script>
   <script src="js/theme.js"></script>
+  <script src="js/hero-tech.js"></script>
+  <script src="js/cursor.js"></script>
   <script src="js/animations.js"></script>
   <script src="js/main.js"></script>
 
