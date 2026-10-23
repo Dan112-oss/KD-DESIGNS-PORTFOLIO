@@ -13,13 +13,25 @@
       var stored = localStorage.getItem('kd-theme');
       var theme = stored || 'dark'; // dark-first: the tech look is the default
       document.documentElement.setAttribute('data-theme', theme);
+
+      // Phase 6: show the boot screen once per session (not for reduced-motion).
+      // The timeout is a failsafe: the screen can never get stuck.
+      try {
+        if (!sessionStorage.getItem('kd-booted') &&
+            !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          document.documentElement.classList.add('kd-booting');
+          setTimeout(function () {
+            document.documentElement.classList.remove('kd-booting');
+          }, 6000);
+        }
+      } catch (e) { /* storage blocked: skip the boot screen */ }
     })();
   </script>
 
-  <!-- Brand typeface: Plus Jakarta Sans (Google Fonts) -->
+  <!-- Tech type system (Google Fonts): Space Grotesk (headlines), IBM Plex Sans (body), JetBrains Mono (labels) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <!-- Stylesheets: order matters (reset -> variables -> layout -> components -> tech -> responsive) -->
   <link rel="stylesheet" href="css/reset.css">
@@ -32,6 +44,22 @@
 <body>
 
   <!-- ==========================================================
+       BOOT SCREEN (Phase 6): shown once per session, see js/boot.js
+  ============================================================= -->
+  <div class="kd-boot" id="kdBoot" aria-hidden="true">
+    <div class="kd-boot__inner">
+      <pre class="kd-boot__log" id="kdBootLog"></pre>
+      <div class="kd-boot__bar"><span class="kd-boot__fill" id="kdBootFill"></span></div>
+      <div class="kd-boot__meta">
+        <span>KD // PORTFOLIO</span>
+        <span id="kdBootPct">000%</span>
+      </div>
+      <p class="kd-boot__skip">click or press any key to skip</p>
+    </div>
+  </div>
+  <script src="js/boot.js"></script>
+
+  <!-- ==========================================================
        HEADER / NAVBAR
   ============================================================= -->
   <header id="header" class="site-header">
@@ -39,7 +67,7 @@
 
       <a href="#" class="nav-logo" aria-label="KD Designs home">
         <img
-          src="assets/images/kd-logo-light-bg.png"
+          src="assets/images/kd-logo-dark-bg.png"
           data-light-src="assets/images/kd-logo-light-bg.png"
           data-dark-src="assets/images/kd-logo-dark-bg.png"
           alt="KD Designs logo"
@@ -149,7 +177,7 @@
               src="assets/images/kd-hero-portrait.jpg"
               alt="Portrait placeholder — replace with a real photo"
               class="portrait-frame__photo"
-              loading="lazy"
+              fetchpriority="high"
             >
           </div>
 
@@ -577,7 +605,7 @@
 
       <div class="footer__brand">
         <img
-          src="assets/images/kd-logo-light-bg.png"
+          src="assets/images/kd-logo-dark-bg.png"
           data-light-src="assets/images/kd-logo-light-bg.png"
           data-dark-src="assets/images/kd-logo-dark-bg.png"
           alt="KD Designs logo"
@@ -621,6 +649,7 @@
   <script src="js/cursor.js"></script>
   <script src="js/animations.js"></script>
   <script src="js/tech-motion.js"></script>
+  <script src="js/hud.js"></script>
   <script src="js/main.js"></script>
 
 

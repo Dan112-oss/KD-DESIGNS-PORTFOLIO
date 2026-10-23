@@ -1,5 +1,5 @@
 /* ==========================================================
-   TECH.CSS  (Phases 1-4)
+   TECH.CSS  (Phases 1-7)
    Purpose: The "tech" layer on top of the existing design.
    Loads after components.css and only adds or overrides
    details: monospace labels, glow, hairlines, pulse, scrollbar.
@@ -550,4 +550,255 @@ html.kd-cursor-on [contenteditable="true"] {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-text-secondary);
+}
+
+/* ==========================================================
+   PHASE 6: BOOT SCREEN, SCROLL PROGRESS, CORNER READOUT
+============================================================= */
+
+/* -----------------------------------------
+   BOOT SCREEN
+   Always dark, whatever the theme. Only shown while <html> has
+   the "kd-booting" class (set by the inline script in index.html).
+------------------------------------------ */
+.kd-boot {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9990; /* under the custom cursor (10000) so it stays visible */
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  background: var(--color-black);
+  color: rgba(255, 255, 255, 0.88);
+  font-family: var(--font-mono);
+  clip-path: inset(0 0 0 0);
+}
+
+html.kd-booting .kd-boot,
+.kd-boot.is-leaving {
+  display: flex;
+}
+
+/* Failsafe: if the script never finishes, hide the screen anyway */
+html.kd-booting .kd-boot {
+  animation: kd-boot-failsafe 0.01s linear 5.5s forwards;
+}
+
+@keyframes kd-boot-failsafe {
+  to { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+
+/* Scanlines */
+.kd-boot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.03) 0,
+    rgba(255, 255, 255, 0.03) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* Slide away upward */
+.kd-boot.is-leaving {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.75s cubic-bezier(0.77, 0, 0.18, 1);
+  pointer-events: none;
+}
+
+.kd-boot__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 520px;
+}
+
+.kd-boot__log {
+  min-height: 7.5em;
+  margin: 0 0 var(--space-md);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  line-height: 1.9;
+  white-space: pre-wrap;
+}
+
+.kd-boot__line {
+  display: block;
+}
+
+.kd-boot__line::first-letter {
+  color: var(--color-primary);
+}
+
+.kd-boot__line.is-last::after {
+  content: "_";
+  color: var(--color-primary);
+  animation: kd-blink 0.9s steps(1) infinite;
+}
+
+@keyframes kd-blink {
+  50% { opacity: 0; }
+}
+
+.kd-boot__bar {
+  height: 2px;
+  background: rgba(255, 255, 255, 0.14);
+  overflow: hidden;
+}
+
+.kd-boot__fill {
+  display: block;
+  height: 100%;
+  background: var(--gradient-primary);
+  box-shadow: var(--glow-strong);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.kd-boot__meta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-xs);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.kd-boot__skip {
+  margin: var(--space-lg) 0 0;
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* Hold the hero's entrance animation until the boot screen leaves.
+   Paused animations keep the elements hidden (animation-fill: both). */
+html.kd-booting .hero__eyebrow,
+html.kd-booting .hero__headline,
+html.kd-booting .hero__paragraph,
+html.kd-booting .hero__actions,
+html.kd-booting .hero__visual {
+  animation-play-state: paused;
+}
+
+/* -----------------------------------------
+   SCROLL PROGRESS BAR
+------------------------------------------ */
+.kd-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 9500;
+  pointer-events: none;
+}
+
+.kd-progress__fill {
+  display: block;
+  height: 100%;
+  background: var(--gradient-primary);
+  box-shadow: 0 0 10px rgba(243, 164, 44, 0.7);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* -----------------------------------------
+   CORNER READOUT (desktop only)
+------------------------------------------ */
+.kd-hud {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 1024px) {
+  .kd-hud {
+    display: flex;
+    gap: var(--space-md);
+    position: fixed;
+    left: var(--space-sm);
+    bottom: var(--space-sm);
+    z-index: 9000;
+    padding: 8px 14px;
+    border: var(--hairline);
+    border-radius: var(--radius-md);
+    background: rgba(10, 10, 10, 0.72);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: rgba(255, 255, 255, 0.85);
+    pointer-events: none;
+    user-select: none;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .kd-hud__item {
+    display: flex;
+    gap: 6px;
+    white-space: nowrap;
+  }
+
+  .kd-hud__item b {
+    font-weight: var(--font-weight-medium);
+    color: var(--color-primary);
+  }
+}
+
+/* ==========================================================
+   PHASE 7: TECH TYPOGRAPHY
+   The fonts themselves are set in variables.css. This section
+   tunes how they're used so the whole site reads as "interface":
+   Space Grotesk for headlines/buttons, IBM Plex Sans for body,
+   JetBrains Mono (small caps-style) for nav, filters and tags.
+============================================================= */
+h1, h2, h3, h4 {
+  letter-spacing: -0.02em;
+}
+
+/* Buttons: headline font, a touch of tracking */
+.btn {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.01em;
+}
+
+/* Mobile menu links are large, so they stay in the headline font */
+.mobile-nav__link {
+  font-family: var(--font-primary);
+}
+
+/* Small UI text in mono: nav, filters, tags, form labels, categories */
+.site-nav__link,
+.filter-btn,
+.skills-list__item,
+.project-card__category,
+.contact-form__label {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.site-nav__link,
+.filter-btn {
+  font-weight: var(--font-weight-medium);
+}
+
+/* Form fields keep a readable body font; placeholder in mono */
+.contact-form__input,
+.contact-form__textarea {
+  font-family: var(--font-secondary);
+}
+
+.contact-form__input::placeholder,
+.contact-form__textarea::placeholder {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.04em;
 }

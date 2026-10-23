@@ -158,6 +158,7 @@ KD.initHeroTech = function initHeroTech() {
 
     accent.style.minWidth = accent.offsetWidth + 'px';
 
+    const runDecode = function () {
     setTimeout(function () {
       const start = performance.now();
 
@@ -186,5 +187,13 @@ KD.initHeroTech = function initHeroTech() {
 
       requestAnimationFrame(tick);
     }, 500);
+    };
+
+    // If the boot screen is showing, decode after it leaves
+    if (document.documentElement.classList.contains('kd-booting')) {
+      window.addEventListener('kd:boot-done', runDecode, { once: true });
+    } else {
+      runDecode();
+    }
   }
 };

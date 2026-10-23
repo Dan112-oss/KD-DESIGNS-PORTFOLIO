@@ -52,4 +52,9 @@ document.addEventListener('DOMContentLoaded', function () {
   if (window.KD && typeof KD.initTechMotion === 'function') {
     KD.initTechMotion();
   }
+
+  // Phase 6: scroll progress bar + corner readout
+  if (window.KD && typeof KD.initHud === 'function') {
+    KD.initHud();
+  }
 });
