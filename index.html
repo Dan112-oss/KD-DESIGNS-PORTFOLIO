@@ -178,13 +178,32 @@
         </div>
 
         <div class="hero__visual">
-          <div class="portrait-frame">
+          <!-- Phase 9: orbit rings behind the portrait (decorative) -->
+          <div class="hero__orbits" aria-hidden="true">
+            <svg class="hero__orbits-svg" viewBox="0 0 400 400" fill="none" focusable="false">
+              <g class="orbit-spin orbit-spin--slow">
+                <circle class="orbit orbit--dash" cx="200" cy="200" r="190"/>
+              </g>
+              <g class="orbit-spin orbit-spin--rev">
+                <circle class="orbit orbit--thin" cx="200" cy="200" r="168"/>
+                <circle class="orbit-dot" cx="200" cy="32" r="4.5"/>
+              </g>
+              <g class="orbit-spin">
+                <circle class="orbit orbit--ticks" cx="200" cy="200" r="148"/>
+              </g>
+            </svg>
+          </div>
+
+          <div class="portrait-frame tech-corners">
             <img
               src="assets/images/kd-hero-portrait.jpg"
               alt="Portrait placeholder — replace with a real photo"
               class="portrait-frame__photo"
               fetchpriority="high"
             >
+            <!-- Phase 9: scan sweep + tag (decorative) -->
+            <span class="portrait-frame__scan" aria-hidden="true"></span>
+            <span class="portrait-frame__tag" aria-hidden="true">KD // Visual Identity</span>
           </div>
 
           <!-- Reserved space for selected work previews, added in a later phase -->
@@ -658,6 +677,8 @@
   <script src="js/hud.js"></script>
   <script src="js/tech-text.js"></script>
   <script src="js/magnetic.js"></script>
+  <script src="js/hero-depth.js"></script>
+  <script src="js/circuits.js"></script>
   <script src="js/main.js"></script>
 
 

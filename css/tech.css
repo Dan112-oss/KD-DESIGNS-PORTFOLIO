@@ -1,5 +1,5 @@
 /* ==========================================================
-   TECH.CSS  (Phases 1-8)
+   TECH.CSS  (Phases 1-9)
    Purpose: The "tech" layer on top of the existing design.
    Loads after components.css and only adds or overrides
    details: monospace labels, glow, hairlines, pulse, scrollbar.
@@ -851,4 +851,303 @@ html.kd-booting .hero__typed {
     box-shadow var(--transition-base),
     background var(--transition-base),
     translate 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ==========================================================
+   PHASE 9: HERO PORTRAIT EFFECTS + CIRCUIT LINES
+============================================================= */
+
+/* -----------------------------------------
+   ORBIT RINGS (behind the portrait)
+   js/hero-depth.js sets --kd-dx / --kd-dy (-1 to 1) on .hero__visual
+   for the mouse-depth effect.
+------------------------------------------ */
+.hero__visual {
+  position: relative;
+}
+
+.hero__orbits {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 0;
+  pointer-events: none;
+  translate: calc(var(--kd-dx, 0) * 22px) calc(var(--kd-dy, 0) * 18px);
+}
+
+.hero__orbits-svg {
+  width: 135%;
+  max-width: 540px;
+  aspect-ratio: 1;
+  overflow: visible;
+}
+
+.orbit {
+  fill: none;
+  stroke: var(--color-primary);
+}
+
+.orbit--dash {
+  stroke-width: 1.2;
+  stroke-opacity: 0.45;
+  stroke-dasharray: 2 10;
+}
+
+.orbit--thin {
+  stroke-width: 1;
+  stroke-opacity: 0.3;
+}
+
+/* thick stroke + short dashes = radial tick marks */
+.orbit--ticks {
+  stroke-width: 8;
+  stroke-opacity: 0.35;
+  stroke-dasharray: 1.5 8.4;
+}
+
+.orbit-dot {
+  fill: #F3A42C;
+  filter: drop-shadow(0 0 5px rgba(243, 164, 44, 0.9));
+}
+
+.orbit-spin {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .orbit-spin {
+    animation: kd-spin-cw 40s linear infinite;
+  }
+
+  .orbit-spin--slow {
+    animation-duration: 90s;
+  }
+
+  .orbit-spin--rev {
+    animation: kd-spin-ccw 26s linear infinite;
+  }
+}
+
+@keyframes kd-spin-cw  { to { transform: rotate(360deg); } }
+@keyframes kd-spin-ccw { to { transform: rotate(-360deg); } }
+
+/* -----------------------------------------
+   PORTRAIT: depth shift, scan sweep, tag
+------------------------------------------ */
+.hero__visual .portrait-frame {
+  z-index: 1;
+  translate: calc(var(--kd-dx, 0) * -10px) calc(var(--kd-dy, 0) * -8px);
+  box-shadow: 0 0 0 1px rgba(215, 112, 1, 0.25), 0 24px 60px -24px rgba(215, 112, 1, 0.45);
+}
+
+.portrait-frame__scan {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.portrait-frame__scan::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -90px;
+  height: 90px;
+  background: linear-gradient(
+    to bottom,
+    rgba(243, 164, 44, 0) 0%,
+    rgba(243, 164, 44, 0.16) 70%,
+    rgba(243, 164, 44, 0.6) 98%,
+    #F3A42C 100%
+  );
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .portrait-frame__scan::before {
+    animation: kd-scan 5.5s cubic-bezier(0.45, 0, 0.55, 1) 2s infinite;
+  }
+}
+
+/* sweep top to bottom, then rest before the next pass */
+@keyframes kd-scan {
+  0%   { top: -90px; opacity: 0; }
+  6%   { opacity: 1; }
+  52%  { top: 100%; opacity: 1; }
+  58%  { top: 100%; opacity: 0; }
+  100% { top: 100%; opacity: 0; }
+}
+
+.portrait-frame__tag {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px;
+  border: var(--hairline);
+  border-radius: var(--radius-sm);
+  background: rgba(10, 10, 10, 0.72);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.portrait-frame__tag::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .portrait-frame__tag::before {
+    animation: kd-pulse 2s ease-out infinite;
+  }
+}
+
+@media (max-width: 599px) {
+  .hero__orbits-svg {
+    width: 118%;
+  }
+}
+
+/* -----------------------------------------
+   CIRCUIT LINES BETWEEN SECTIONS
+   Built by js/circuits.js. Zero-height wrapper so it takes no
+   space; the 48px drawing is centred on the seam.
+------------------------------------------ */
+.circuit {
+  position: relative;
+  height: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.circuit__svg {
+  position: absolute;
+  left: 0;
+  top: -24px;
+  width: 100%;
+  height: 48px;
+  display: block;
+  overflow: hidden;
+}
+
+.circuit__trace {
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-opacity: 0.7;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.8s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.circuit__node {
+  fill: var(--color-background);
+  stroke: var(--color-primary);
+  stroke-width: 1.5;
+  opacity: 0;
+  transform: scale(0.3);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 0.4s ease 1.3s, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1.4) 1.3s;
+}
+
+.circuit__pulse {
+  fill: #F3A42C;
+  opacity: 0;
+  filter: drop-shadow(0 0 5px rgba(243, 164, 44, 0.95));
+  transition: opacity 0.5s ease 1.9s;
+}
+
+.circuit.is-drawn .circuit__trace {
+  stroke-dashoffset: 0;
+}
+
+.circuit.is-drawn .circuit__node {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.circuit.is-drawn .circuit__pulse {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .circuit__trace,
+  .circuit__node,
+  .circuit__pulse {
+    transition: none;
+  }
+}
+
+/* ----------------------------------------------------------
+   PHASE 9 FIX: show the orbit rings, scan sweep and tag in DARK
+   mode too. In dark mode the real photo is the hero background,
+   and components.css hides the whole .hero__visual column. Here the
+   column comes back (desktop only) but as a transparent overlay:
+   the placeholder photo/box is hidden, and the rings, brackets, scan
+   and tag are lined up over the person in the background photo.
+---------------------------------------------------------- */
+@media (min-width: 1024px) {
+  [data-theme="dark"] .hero__visual {
+    display: flex;
+    margin: -110px 0 0 -62px; /* nudge onto the person's head and shoulders */
+  }
+}
+
+[data-theme="dark"] .hero__visual .portrait-frame {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+[data-theme="dark"] .portrait-frame__photo {
+  visibility: hidden; /* the background photo is the real image */
+}
+
+[data-theme="dark"] .hero__visual .preview-card {
+  display: none;
+}
+
+/* Stronger rings so they read over the bright photo */
+[data-theme="dark"] .orbit--dash {
+  stroke-opacity: 0.9;
+  stroke-width: 1.6;
+}
+
+[data-theme="dark"] .orbit--thin {
+  stroke-opacity: 0.7;
+  stroke-width: 1.4;
+}
+
+[data-theme="dark"] .orbit--ticks {
+  stroke-opacity: 0.65;
+}
+
+/* Scan band a little softer over a real face */
+[data-theme="dark"] .portrait-frame__scan::before {
+  background: linear-gradient(
+    to bottom,
+    rgba(243, 164, 44, 0) 0%,
+    rgba(243, 164, 44, 0.1) 70%,
+    rgba(243, 164, 44, 0.45) 98%,
+    #F3A42C 100%
+  );
 }
