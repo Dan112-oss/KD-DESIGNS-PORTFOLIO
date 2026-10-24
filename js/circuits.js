@@ -13,8 +13,8 @@ window.KD = window.KD || {};
 KD.initCircuits = function initCircuits() {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Which section each line sits above (the seam with the section before it)
-  const ids = ['portfolio', 'about', 'services', 'testimonials', 'contact'];
+  // Which section/footer each line sits above (the seam with whatever comes before it)
+  const ids = ['portfolio', 'about', 'services', 'testimonials', 'contact', 'footer'];
 
   // Three trace layouts (viewBox 1200 x 48), reused in rotation
   const variants = [

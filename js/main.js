@@ -74,8 +74,13 @@ document.addEventListener('DOMContentLoaded', function () {
     KD.initCircuits();
   }
 
-  // Phase 11: testimonials neural-link effects (needs the cards rendered above)
-  if (window.KD && typeof KD.initTestimonialsTech === 'function') {
-    KD.initTestimonialsTech();
+  // Phase 14: testimonials holographic carousel (needs the cards rendered above)
+  if (window.KD && typeof KD.initTestimonialsHolo === 'function') {
+    KD.initTestimonialsHolo();
+  }
+
+  // Phase 13: footer console (status bar, wordmark, copy-email)
+  if (window.KD && typeof KD.initFooterTech === 'function') {
+    KD.initFooterTech();
   }
 });
