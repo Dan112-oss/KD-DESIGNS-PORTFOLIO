@@ -65,4 +65,17 @@ document.addEventListener('DOMContentLoaded', function () {
   if (window.KD && typeof KD.initMagnetic === 'function') {
     KD.initMagnetic();
   }
+
+  // Phase 9: hero depth parallax + circuit lines between sections
+  if (window.KD && typeof KD.initHeroDepth === 'function') {
+    KD.initHeroDepth();
+  }
+  if (window.KD && typeof KD.initCircuits === 'function') {
+    KD.initCircuits();
+  }
+
+  // Phase 11: testimonials neural-link effects (needs the cards rendered above)
+  if (window.KD && typeof KD.initTestimonialsTech === 'function') {
+    KD.initTestimonialsTech();
+  }
 });
