@@ -1,5 +1,5 @@
 /* ==========================================================
-   TECH.CSS  (Phases 1-9)
+   TECH.CSS  (Phases 1-10)
    Purpose: The "tech" layer on top of the existing design.
    Loads after components.css and only adds or overrides
    details: monospace labels, glow, hairlines, pulse, scrollbar.
@@ -1150,4 +1150,28 @@ html.kd-booting .hero__typed {
     rgba(243, 164, 44, 0.45) 98%,
     #F3A42C 100%
   );
+}
+
+/* ==========================================================
+   PHASE 10: CHAKRA PETCH / EXO 2 TYPE TUNING
+   Chakra Petch is a squared, wide-set face, so headlines get
+   neutral letter-spacing (the earlier tight tracking suited
+   Space Grotesk, not this font). Fonts are set in variables.css.
+============================================================= */
+h1, h2, h3, h4,
+.hero__headline,
+.section-heading {
+  letter-spacing: 0;
+}
+
+.hero__headline {
+  line-height: 1.08;
+}
+
+.btn {
+  letter-spacing: 0.04em;
+}
+
+body {
+  font-weight: var(--font-weight-regular);
 }

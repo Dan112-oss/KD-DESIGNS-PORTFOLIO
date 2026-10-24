@@ -48,14 +48,14 @@
      TYPOGRAPHY — KD Designs brand
      Three-font tech system, loaded via Google Fonts in
      index.html <head>:
-       --font-primary    Space Grotesk   headlines, buttons, numbers
-       --font-secondary  IBM Plex Sans   body copy and paragraphs
+       --font-primary    Chakra Petch    headlines, buttons, numbers
+       --font-secondary  Exo 2           body copy and paragraphs
        --font-mono       JetBrains Mono  small labels, nav, tags
-     Space Grotesk tops out at weight 700, so the "extrabold"
+     Chakra Petch tops out at weight 700, so the "extrabold"
      token below maps to 700 on purpose.
   ------------------------------------------ */
-  --font-primary: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
-  --font-secondary: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+  --font-primary: 'Chakra Petch', 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  --font-secondary: 'Exo 2', 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
 
   /* TECH LAYER: monospace for small labels, numbers and
      status text only. Headlines and body stay Plus Jakarta Sans. */
@@ -74,7 +74,7 @@
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
-  --font-weight-extrabold: 700;  /* Space Grotesk max weight; reserved for hero-scale headlines */
+  --font-weight-extrabold: 700;  /* Chakra Petch max weight; reserved for hero-scale headlines */
 
   /* -----------------------------------------
      SPACING SCALE
