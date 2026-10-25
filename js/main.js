@@ -41,6 +41,11 @@ document.addEventListener('DOMContentLoaded', function () {
     KD.initCursor();
   }
 
+  // Phase 16: testimonials slider (before the reveal animations, so copies are included)
+  if (window.KD && typeof KD.initTestimonialsSlider === 'function') {
+    KD.initTestimonialsSlider();
+  }
+
   // Runs last: reveal animations and the Portfolio tilt effect
   // need the Portfolio/Testimonials cards to already exist in
   // the DOM, which the two init calls above just created.
@@ -72,11 +77,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   if (window.KD && typeof KD.initCircuits === 'function') {
     KD.initCircuits();
-  }
-
-  // Phase 15: testimonials share the Services card look (needs the cards rendered above)
-  if (window.KD && typeof KD.initTestimonialsMatch === 'function') {
-    KD.initTestimonialsMatch();
   }
 
   // Phase 13: footer console (status bar, wordmark, copy-email)

@@ -149,7 +149,8 @@ KD.initHeroTech = function initHeroTech() {
 
   if (headline && accent && !reduce) {
     const finalText = accent.textContent;
-    const chars = '01<>/\\_+*#=';
+    // scramble with the phrase's own letters: similar widths, so the headline doesn't jump
+    const chars = finalText.replace(/[^A-Za-z]/g, '') || 'KD';
     const duration = 1100;
 
     // Screen readers should hear the real sentence, not the scramble

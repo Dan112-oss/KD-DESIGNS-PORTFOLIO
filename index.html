@@ -3,7 +3,49 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KD Designs | Visual Designer Portfolio</title>
+  <title>KD Designs | Brand Identity, Graphic Design &amp; Web Design</title>
+
+  <!-- SEO: description, keywords and sharing tags -->
+  <meta name="description" content="KD Designs creates brand identity, logo design, graphic design, web design and UI design that help businesses stand out. Ideas, creativity and design. Get started today.">
+  <meta name="keywords" content="brand identity design, logo design, graphic design, web design, website design, UI design, social media design, visual identity, branding, brand designer, freelance designer, KD Designs">
+  <meta name="author" content="KD Designs">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#D77001">
+
+  <!-- Open Graph / Twitter (link previews on social media and messaging apps) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="KD Designs">
+  <meta property="og:title" content="KD Designs | Brand Identity, Graphic Design &amp; Web Design">
+  <meta property="og:description" content="Elevate your brand beyond every limit with brand identity, logo design, graphic design and web design from KD Designs.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="KD Designs | Brand Identity, Graphic Design &amp; Web Design">
+  <meta name="twitter:description" content="Brand identity, logo design, graphic design and web design that help businesses stand out.">
+  <!-- ADD WHEN YOUR SITE IS LIVE (replace YOUR-DOMAIN.com with your real address):
+       <link rel="canonical" href="https://YOUR-DOMAIN.com/">
+       <meta property="og:url" content="https://YOUR-DOMAIN.com/">
+       <meta property="og:image" content="https://YOUR-DOMAIN.com/assets/images/hero/hero-visual-wide.jpg">
+       <meta name="twitter:image" content="https://YOUR-DOMAIN.com/assets/images/hero/hero-visual-wide.jpg"> -->
+
+  <!-- SEO: structured data so search engines understand the business -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "KD Designs",
+    "slogan": "Ideas, Creativity and Design",
+    "description": "KD Designs provides brand identity design, logo design, graphic design, web design, UI design and social media design for businesses that want to stand out.",
+    "email": "kd0960336@gmail.com",
+    "serviceType": [
+      "Brand identity design",
+      "Logo design",
+      "Graphic design",
+      "Web design",
+      "UI design",
+      "Social media design"
+    ],
+    "knowsAbout": ["Branding", "Visual identity", "Graphic design", "Web design", "User interface design"]
+  }
+  </script>
 
   <!-- Set the theme before first paint, so there's no flash of the
        wrong theme. Kept tiny and inline on purpose — this is the
@@ -70,7 +112,7 @@
           src="assets/images/kd-logo-dark-bg.png"
           data-light-src="assets/images/kd-logo-light-bg.png"
           data-dark-src="assets/images/kd-logo-dark-bg.png"
-          alt="KD Designs logo"
+          alt="KD Designs logo: brand identity, graphic and web design"
           class="nav-logo__image theme-logo"
           width="1500"
           height="500"
@@ -145,7 +187,7 @@
     <!-- ==========================================================
          HERO SECTION
     ============================================================= -->
-    <section id="hero" class="hero">
+    <section id="hero" class="hero" aria-labelledby="heroHeading">
       <!-- Phase 2: animated dot-grid background (drawn by js/hero-tech.js) -->
       <canvas class="hero__grid" id="heroGrid" aria-hidden="true"></canvas>
       <div class="container hero__inner">
@@ -153,16 +195,17 @@
         <div class="hero__content">
           <p class="hero__eyebrow">
             <span class="hero__eyebrow-dot" aria-hidden="true"></span>
-            Visual Designer • Graphic + Web Design
+            Ideas, Creativity and Design
           </p>
 
-          <h1 class="hero__headline">Visual design that makes brands <span class="hero__headline-accent">stand out.</span></h1>
+          <h1 class="hero__headline" id="heroHeading">Elevate Brands <span class="hero__headline-accent">Beyond Every Limit.</span></h1>
 
           <p class="hero__paragraph">
-            I create graphic design, brand visuals, and websites for businesses
-            that want to communicate clearly and look their best doing it —
-            from logos and brand assets to full website experiences, designed
-            with intention.
+            I'm a brand identity, graphic and web designer who helps
+            businesses stand out and grow. From logo design and visual
+            identity to social media graphics and high-converting
+            websites, I create design that lifts your brand beyond every
+            limit.
           </p>
 
           <!-- Phase 8: typing line, filled in by js/tech-text.js -->
@@ -172,8 +215,8 @@
           </p>
 
           <div class="hero__actions">
-            <a href="#portfolio" class="btn btn--primary">View My Work</a>
-            <a href="#contact" class="btn btn--secondary">Let's Work</a>
+            <a href="#contact" class="btn btn--primary">Get started</a>
+            <a href="#portfolio" class="btn btn--secondary">View My Work</a>
           </div>
         </div>
 
@@ -197,7 +240,7 @@
           <div class="portrait-frame tech-corners">
             <img
               src="assets/images/kd-hero-portrait.jpg"
-              alt="Portrait placeholder — replace with a real photo"
+              alt="KD Designs, brand identity and web designer"
               class="portrait-frame__photo"
               fetchpriority="high"
             >
@@ -243,7 +286,7 @@
     <!-- ==========================================================
          PROCESS SECTION
     ============================================================= -->
-    <section id="process" class="process">
+    <section id="process" class="process" aria-labelledby="processHeading">
       <div class="container">
 
         <div class="process__header">
@@ -251,7 +294,7 @@
             <span class="eyebrow__dot" aria-hidden="true"></span>
             How I Work
           </p>
-          <h2 class="section-heading">A simple process from idea to final design.</h2>
+          <h2 class="section-heading" id="processHeading">A simple process from idea to final design.</h2>
           <p class="section-lede">
             I keep the design process clear and organized, from
             understanding your needs to delivering the final result.
@@ -311,7 +354,7 @@
     <!-- ==========================================================
          PORTFOLIO SECTION
     ============================================================= -->
-    <section id="portfolio" class="portfolio">
+    <section id="portfolio" class="portfolio" aria-labelledby="portfolioHeading">
       <div class="container">
 
         <div class="portfolio__header">
@@ -319,10 +362,11 @@
             <span class="eyebrow__dot" aria-hidden="true"></span>
             Selected Work
           </p>
-          <h2 class="section-heading">Designs built to communicate, connect, and stand out.</h2>
+          <h2 class="section-heading" id="portfolioHeading">Designs built to communicate, connect, and stand out.</h2>
           <p class="section-lede">
-            A collection of graphic and web design work — from brand visuals
-            to full website experiences. Browse by category below.
+            A collection of graphic design, branding and web design projects —
+            from logo design and brand visuals to full website experiences.
+            Browse by category below.
           </p>
         </div>
 
@@ -369,14 +413,14 @@
     <!-- ==========================================================
          ABOUT SECTION
     ============================================================= -->
-    <section id="about" class="about">
+    <section id="about" class="about" aria-labelledby="aboutHeading">
       <div class="container about__inner">
 
         <div class="about__visual">
           <div class="portrait-frame about__photo-frame">
             <img
               src="assets/images/kd-profile.jpg"
-              alt="Profile photo placeholder — replace with a real photo"
+              alt="KD, brand identity, graphic and web designer behind KD Designs"
               class="about__photo"
               loading="lazy"
             >
@@ -390,13 +434,14 @@
             About Me
           </p>
 
-          <h2 class="section-heading">Designing visuals that help brands communicate clearly.</h2>
+          <h2 class="section-heading" id="aboutHeading">Designing visuals that help brands communicate clearly.</h2>
 
           <p class="about__paragraph">
-            I'm a visual designer focused on graphic design and web design. I
-            create clean, purposeful visuals for brands, businesses, and
-            digital products, with attention to layout, typography, color,
-            and user experience.
+            I'm a visual designer focused on brand identity, graphic design and
+            web design. I create clean, purposeful visuals for brands,
+            businesses and digital products — from logos and social media
+            design to UI design and websites — with attention to layout,
+            typography, color and user experience.
           </p>
 
           <p class="about__paragraph">
@@ -444,7 +489,7 @@
     <!-- ==========================================================
          SERVICES SECTION
     ============================================================= -->
-    <section id="services" class="services">
+    <section id="services" class="services" aria-labelledby="servicesHeading">
       <div class="container">
 
         <div class="services__header">
@@ -452,11 +497,11 @@
             <span class="eyebrow__dot" aria-hidden="true"></span>
             My Services
           </p>
-          <h2 class="section-heading">Design solutions built around your brand.</h2>
+          <h2 class="section-heading" id="servicesHeading">Brand identity, graphic design and web design solutions.</h2>
           <p class="section-lede">
-            I provide visual and digital design services focused on helping
-            brands present themselves clearly, professionally, and
-            consistently.
+            I provide branding, graphic design, web design and UI design
+            services focused on helping brands present themselves clearly,
+            professionally and consistently.
           </p>
         </div>
 
@@ -552,7 +597,7 @@
     <!-- ==========================================================
          TESTIMONIALS SECTION
     ============================================================= -->
-    <section id="testimonials" class="testimonials">
+    <section id="testimonials" class="testimonials" aria-labelledby="testimonialsHeading">
       <div class="container">
 
         <div class="testimonials__header">
@@ -560,9 +605,10 @@
             <span class="eyebrow__dot" aria-hidden="true"></span>
             Testimonials
           </p>
-          <h2 class="section-heading">What clients say about working with me.</h2>
+          <h2 class="section-heading" id="testimonialsHeading">What clients say about working with me.</h2>
           <p class="section-lede">
-            Feedback from people I've collaborated with on design projects.
+            Feedback from clients I've created brand identities, graphics and
+            websites for.
           </p>
         </div>
 
@@ -577,7 +623,7 @@
     <!-- ==========================================================
          CONTACT SECTION
     ============================================================= -->
-    <section id="contact" class="contact">
+    <section id="contact" class="contact" aria-labelledby="contactHeading">
       <div class="container contact__inner">
 
         <div class="contact__header">
@@ -585,9 +631,10 @@
             <span class="eyebrow__dot" aria-hidden="true"></span>
             Contact
           </p>
-          <h2 class="section-heading">Let's start your next project.</h2>
+          <h2 class="section-heading" id="contactHeading">Let's start your next project.</h2>
           <p class="section-lede">
-            Have a project in mind? Send a message and I'll get back to you.
+            Need a logo, brand identity, graphic design or a new website? Send
+            a message and I'll get back to you.
           </p>
           <a href="mailto:kd0960336@gmail.com" class="contact__email-link">kd0960336@gmail.com</a>
         </div>
@@ -633,7 +680,7 @@
           src="assets/images/kd-logo-dark-bg.png"
           data-light-src="assets/images/kd-logo-light-bg.png"
           data-dark-src="assets/images/kd-logo-dark-bg.png"
-          alt="KD Designs logo"
+          alt="KD Designs logo: brand identity, graphic and web design"
           class="footer__logo theme-logo"
           width="1500"
           height="500"
@@ -679,7 +726,7 @@
   <script src="js/magnetic.js"></script>
   <script src="js/hero-depth.js"></script>
   <script src="js/circuits.js"></script>
-  <script src="js/testimonials-match.js"></script>
+  <script src="js/testimonials-slider.js"></script>
   <script src="js/footer-tech.js"></script>
   <script src="js/main.js"></script>
 

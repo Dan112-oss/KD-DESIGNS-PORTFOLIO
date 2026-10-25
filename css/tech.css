@@ -1,5 +1,5 @@
 /* ==========================================================
-   TECH.CSS  (Phases 1-13 + 15)
+   TECH.CSS  (Phases 1-13 + 16)
    Purpose: The "tech" layer on top of the existing design.
    Loads after components.css and only adds or overrides
    details: monospace labels, glow, hairlines, pulse, scrollbar.
@@ -175,8 +175,9 @@ html {
 
 /* Key words of the headline carry the brand gradient */
 .hero__headline-accent {
-  display: inline-block;
-  white-space: nowrap;
+  display: inline;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
   background: var(--gradient-primary);
   -webkit-background-clip: text;
   background-clip: text;
@@ -1464,67 +1465,86 @@ html.kd-footer-view .kd-hud {
 }
 
 /* ==========================================================
-   PHASE 15: TESTIMONIALS MATCH THE SERVICES SECTION
-   Same big number, icon hover colour and featured first card as
-   the Services cards. Cards are decorated by js/testimonials-match.js.
-   (Hover lift, border sweep, glow and reveal are already shared.)
+   PHASE 16: TESTIMONIALS SLIDER
+   Cards glide left in a seamless loop (js/testimonials-slider.js).
+   Cards keep the same look and hover effects as the Services cards.
 ============================================================= */
-.testimonial-card__body {
+.testimonials {
+  overflow: hidden;
+}
+
+/* full-width slider that breaks out of the page container */
+.testimonials__grid.testi-slider {
+  display: block;
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding-block: var(--space-sm);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+}
+
+.testi-track {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-sm);
+  width: max-content;
+  will-change: transform;
 }
 
-/* big number, same as .service-card__number */
-.testimonial-card__number {
-  font-family: var(--font-primary);
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-border);
-  line-height: 1;
-  transition: color var(--transition-base);
+.testi-group {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--space-md);
+  padding-right: var(--space-md);
 }
 
-.testimonial-card:hover .testimonial-card__number,
-.testimonial-card:focus-visible .testimonial-card__number {
-  color: var(--color-primary);
+.testi-slider .testimonial-card {
+  flex: 0 0 auto;
+  width: min(380px, 82vw);
 }
 
-/* quote icon behaves like a service icon: neutral, orange on hover */
-.testimonial-card__quote-icon {
-  stroke: currentColor;
-  color: var(--color-text-primary);
-  transition: color var(--transition-base);
-}
-
-.testimonial-card:hover .testimonial-card__quote-icon,
-.testimonial-card:focus-visible .testimonial-card__quote-icon {
-  color: var(--color-primary);
-}
-
-/* featured first card: full width, laid out as a row (like Services) */
-.testimonial-card--featured {
-  grid-column: 1 / -1;
-}
-
-@media (min-width: 1024px) {
-  .testimonials__grid {
-    grid-template-columns: repeat(2, 1fr);
+@media (prefers-reduced-motion: no-preference) {
+  .testi-track {
+    animation: testi-scroll var(--dur, 30s) linear infinite;
   }
+}
 
-  .testimonial-card--featured {
-    flex-direction: row;
-    align-items: center;
-    gap: var(--space-xl);
-  }
+@keyframes testi-scroll {
+  to { transform: translateX(calc(var(--shift, 0px) * -1)); }
+}
 
-  .testimonial-card--featured .testimonial-card__number {
-    order: -1;
-  }
+/* pause on hover, focus, finger held, or while off screen */
+.testi-slider:hover .testi-track,
+.testi-slider:focus-within .testi-track,
+.testi-slider.is-held .testi-track,
+.testimonials.is-offscreen .testi-track {
+  animation-play-state: paused;
+}
 
-  .testimonial-card--featured .testimonial-card__quote {
-    font-size: var(--font-size-lg);
-    max-width: 56ch;
-  }
+/* reduced motion: a plain row you can scroll sideways */
+.testi-slider.is-static {
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.testi-slider.is-static .testimonial-card {
+  scroll-snap-align: start;
+}
+
+/* ---------- the real quotation mark ---------- */
+.testimonial-card__quote-mark {
+  display: block;
+  height: 36px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 76px;
+  font-weight: 700;
+  line-height: 0.95;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  user-select: none;
 }
