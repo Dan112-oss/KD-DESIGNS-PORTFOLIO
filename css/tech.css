@@ -1,5 +1,5 @@
 /* ==========================================================
-   TECH.CSS  (Phases 1-14)
+   TECH.CSS  (Phases 1-13 + 15)
    Purpose: The "tech" layer on top of the existing design.
    Loads after components.css and only adds or overrides
    details: monospace labels, glow, hairlines, pulse, scrollbar.
@@ -1464,396 +1464,67 @@ html.kd-footer-view .kd-hud {
 }
 
 /* ==========================================================
-   PHASE 14: TESTIMONIALS "HOLOGRAPHIC PROJECTOR"
-   3D cover-flow of glowing glass cards over a rotating radar.
-   Behaviour in js/testimonials-holo.js. (Replaces the old
-   neural-network / code-rain testimonials effect.)
+   PHASE 15: TESTIMONIALS MATCH THE SERVICES SECTION
+   Same big number, icon hover colour and featured first card as
+   the Services cards. Cards are decorated by js/testimonials-match.js.
+   (Hover lift, border sweep, glow and reveal are already shared.)
 ============================================================= */
-.testimonials {
-  position: relative;
-  overflow: hidden;
-}
-
-.testimonials > .container {
-  position: relative;
-  z-index: 1;
-}
-
-/* ---------- the stage ---------- */
-.testimonials--holo .testimonials__grid {
-  --holo-w: min(440px, 80vw);
-  --px: 0;
-  --py: 0;
-  display: block;
-  position: relative;
-  height: calc(var(--holo-h, 320px) + 130px);
-  margin-top: var(--space-md);
-  perspective: 1500px;
-  perspective-origin: calc(50% + var(--px) * 7%) calc(38% + var(--py) * 7%);
-  touch-action: pan-y;
-  user-select: none;
-  -webkit-user-select: none;
-  outline: none;
-}
-
-.testimonials--holo .testimonials__grid:focus-visible {
-  outline: 1px dashed rgba(243, 164, 44, 0.7);
-  outline-offset: 6px;
-}
-
-/* ---------- radar ---------- */
-.holo-radar {
-  position: absolute;
-  left: 50%;
-  top: calc(var(--holo-h, 320px) / 2 + 24px);
-  width: min(860px, 135vw);
-  aspect-ratio: 1;
-  translate: -50% -50%;
-  border-radius: 50%;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    repeating-radial-gradient(circle at center, transparent 0 72px, rgba(215, 112, 1, 0.22) 73px 74px),
-    linear-gradient(rgba(215, 112, 1, 0.2), rgba(215, 112, 1, 0.2)) center / 1px 100% no-repeat,
-    linear-gradient(rgba(215, 112, 1, 0.2), rgba(215, 112, 1, 0.2)) center / 100% 1px no-repeat;
-  -webkit-mask-image: radial-gradient(circle, #000 52%, transparent 71%);
-  mask-image: radial-gradient(circle, #000 52%, transparent 71%);
-}
-
-.holo-radar::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: conic-gradient(from 0deg, rgba(243, 164, 44, 0.26), rgba(243, 164, 44, 0) 22%);
-}
-
-.holo-radar::after {
-  content: "";
-  position: absolute;
-  inset: 5%;
-  border-radius: 50%;
-  background: repeating-conic-gradient(rgba(243, 164, 44, 0.55) 0 0.5deg, transparent 0.5deg 6deg);
-  -webkit-mask: radial-gradient(circle, transparent 93%, #000 93.6%);
-  mask: radial-gradient(circle, transparent 93%, #000 93.6%);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .holo-radar::before { animation: holo-sweep 7s linear infinite; }
-  .holo-radar::after  { animation: holo-sweep 120s linear infinite reverse; }
-}
-
-@keyframes holo-sweep {
-  to { transform: rotate(360deg); }
-}
-
-.holo-blip {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  margin: -3px 0 0 -3px;
-  border-radius: 50%;
-  background: #F3A42C;
-  box-shadow: 0 0 10px #F3A42C;
-  opacity: 0;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .holo-blip { animation: holo-ping 4.5s ease-out infinite; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .holo-blip { opacity: 0.6; }
-}
-
-@keyframes holo-ping {
-  0%   { opacity: 0; transform: scale(0.4); }
-  8%   { opacity: 1; transform: scale(1); }
-  40%  { opacity: 0.8; }
-  100% { opacity: 0; transform: scale(3.2); }
-}
-
-/* ---------- projector beam + base ---------- */
-.holo-beam {
-  position: absolute;
-  left: 50%;
-  bottom: 40px;
-  width: min(420px, 78vw);
-  height: calc(var(--holo-h, 320px) + 40px);
-  translate: -50% 0;
-  z-index: 1;
-  pointer-events: none;
-  background: linear-gradient(to top, rgba(243, 164, 44, 0.22), rgba(243, 164, 44, 0) 90%);
-  clip-path: polygon(24% 100%, 76% 100%, 100% 0, 0 0);
-  filter: blur(3px);
-}
-
-.holo-base {
-  position: absolute;
-  left: 50%;
-  bottom: 14px;
-  width: min(460px, 82vw);
-  height: 62px;
-  translate: -50% 0;
-  z-index: 1;
-  pointer-events: none;
-  border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgba(243, 164, 44, 0.55) 0%, rgba(215, 112, 1, 0.18) 45%, transparent 70%);
-}
-
-.holo-base::before,
-.holo-base::after {
-  content: "";
-  position: absolute;
-  inset: 8px 12%;
-  border-radius: 50%;
-  border: 1px solid rgba(243, 164, 44, 0.7);
-}
-
-.holo-base::after {
-  inset: 2px 2%;
-  border-color: rgba(243, 164, 44, 0.35);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .holo-base::before { animation: holo-ring 3s ease-out infinite; }
-  .holo-base::after  { animation: holo-ring 3s ease-out 1.5s infinite; }
-}
-
-@keyframes holo-ring {
-  0%   { transform: scale(0.7); opacity: 1; }
-  100% { transform: scale(1.12); opacity: 0; }
-}
-
-/* ---------- the cards ---------- */
-.testimonials--holo .testimonial-card {
-  position: absolute;
-  top: 24px;
-  left: 50%;
-  width: var(--holo-w);
-  margin-left: calc(var(--holo-w) / -2);
-  z-index: calc(10 - var(--abs, 0));
-  cursor: pointer;
-  color: #fff;
-  background: linear-gradient(160deg, rgba(215, 112, 1, 0.2), rgba(12, 12, 14, 0.78) 58%);
-  border: 1px solid rgba(243, 164, 44, 0.5);
-  border-radius: var(--radius-md);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
-  box-shadow: 0 0 30px rgba(215, 112, 1, 0.25), inset 0 0 44px rgba(215, 112, 1, 0.09);
-
-  /* 3D placement from --d (offset from the active card) and --abs */
-  translate: calc(var(--d, 0) * 66%) 0 calc(var(--abs, 0) * -180px);
-  rotate: 0 1 0 calc(var(--d, 0) * -36deg);
-  scale: calc(1 - var(--abs, 0) * 0.05);
-  filter: brightness(calc(1 - var(--abs, 0) * 0.42));
-  transition:
-    translate 0.85s cubic-bezier(0.2, 0.8, 0.2, 1),
-    rotate 0.85s cubic-bezier(0.2, 0.8, 0.2, 1),
-    scale 0.85s cubic-bezier(0.2, 0.8, 0.2, 1),
-    filter 0.85s ease,
-    box-shadow 0.4s ease;
-  will-change: translate, rotate;
-}
-
-.testimonials--holo .testimonial-card:hover,
-.testimonials--holo .testimonial-card:focus-visible {
-  transform: none;
-  border-color: rgba(243, 164, 44, 0.85);
-}
-
-.testimonials--holo .testimonial-card.is-active {
-  cursor: default;
-  box-shadow: 0 0 46px rgba(243, 164, 44, 0.38), inset 0 0 50px rgba(215, 112, 1, 0.14);
-}
-
-.testimonials--holo .testimonial-card.is-far {
-  visibility: hidden;
-  pointer-events: none;
-}
-
-/* text stays light: the glass is dark in both themes */
-.testimonials--holo .testimonial-card__quote,
-.testimonials--holo .testimonial-card__name {
-  color: #fff;
-}
-
-.testimonials--holo .testimonial-card__role {
-  color: rgba(255, 255, 255, 0.65);
-}
-
-/* scanlines + a bright band that drifts down the active card */
-.testimonials--holo .testimonial-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  background:
-    linear-gradient(to bottom, transparent 0%, rgba(243, 164, 44, 0.16) 50%, transparent 100%) 0 -60% / 100% 40% no-repeat,
-    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0, rgba(255, 255, 255, 0.035) 1px, transparent 1px, transparent 3px);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .testimonials--holo .testimonial-card.is-active::after {
-    animation: holo-band 4.5s linear infinite;
-  }
-
-  .testimonials--holo .testimonial-card.is-active {
-    animation: holo-flicker 7s steps(1, end) infinite;
-  }
-}
-
-@keyframes holo-band {
-  to { background-position: 0 160%, 0 0; }
-}
-
-/* the occasional hologram flicker */
-@keyframes holo-flicker {
-  0%, 92%, 100% { opacity: 1; }
-  93%  { opacity: 0.82; }
-  94%  { opacity: 1; }
-  96%  { opacity: 0.9; }
-  97%  { opacity: 1; }
-}
-
-/* tag */
-.holo-tag {
-  align-self: stretch;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-sm);
-  padding-bottom: var(--space-xs);
-  border-bottom: 1px dashed rgba(243, 164, 44, 0.4);
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.holo-tag__rec {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: #F3A42C;
-}
-
-.holo-tag__rec::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #F3A42C;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .holo-tag__rec::before { animation: kd-pulse 1.6s ease-out infinite; }
-}
-
-/* corner brackets */
-.holo-corners i {
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  border: 2px solid #F3A42C;
-  pointer-events: none;
-}
-
-.holo-corners i:nth-child(1) { top: 6px; left: 6px; border-right: 0; border-bottom: 0; }
-.holo-corners i:nth-child(2) { top: 6px; right: 6px; border-left: 0; border-bottom: 0; }
-.holo-corners i:nth-child(3) { bottom: 6px; left: 6px; border-right: 0; border-top: 0; }
-.holo-corners i:nth-child(4) { bottom: 6px; right: 6px; border-left: 0; border-top: 0; }
-
-/* ---------- controls ---------- */
-.holo-controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-md);
-  margin-top: var(--space-sm);
-  flex-wrap: wrap;
-}
-
-.holo-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 9px 16px;
-  border: var(--hairline);
-  border-radius: var(--radius-sm);
-  background: transparent;
-  color: var(--color-text-primary);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background-color var(--transition-base), color var(--transition-base), box-shadow var(--transition-base);
-}
-
-.holo-btn:hover,
-.holo-btn:focus-visible {
-  background: rgba(215, 112, 1, 0.16);
-  color: var(--color-primary);
-  box-shadow: var(--glow-soft);
-}
-
-.holo-meta {
+.testimonial-card__body {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  min-width: 120px;
+  align-items: flex-start;
+  gap: var(--space-sm);
 }
 
-.holo-count {
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-  font-family: var(--font-mono);
-  font-size: var(--font-size-md);
-  letter-spacing: 0.1em;
-  color: var(--color-text-secondary);
-  font-variant-numeric: tabular-nums;
+/* big number, same as .service-card__number */
+.testimonial-card__number {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-border);
+  line-height: 1;
+  transition: color var(--transition-base);
 }
 
-.holo-count__cur {
+.testimonial-card:hover .testimonial-card__number,
+.testimonial-card:focus-visible .testimonial-card__number {
   color: var(--color-primary);
-  font-weight: var(--font-weight-semibold);
 }
 
-.holo-progress {
-  width: 120px;
-  height: 2px;
-  background: rgba(215, 112, 1, 0.22);
-  overflow: hidden;
+/* quote icon behaves like a service icon: neutral, orange on hover */
+.testimonial-card__quote-icon {
+  stroke: currentColor;
+  color: var(--color-text-primary);
+  transition: color var(--transition-base);
 }
 
-.holo-progress span {
-  display: block;
-  height: 100%;
-  background: var(--gradient-primary);
-  transform: scaleX(0);
-  transform-origin: left center;
+.testimonial-card:hover .testimonial-card__quote-icon,
+.testimonial-card:focus-visible .testimonial-card__quote-icon {
+  color: var(--color-primary);
 }
 
-.holo-progress span.is-running {
-  animation: holo-progress var(--auto, 6500ms) linear forwards;
+/* featured first card: full width, laid out as a row (like Services) */
+.testimonial-card--featured {
+  grid-column: 1 / -1;
 }
 
-@keyframes holo-progress {
-  to { transform: scaleX(1); }
-}
-
-@media (max-width: 599px) {
-  .testimonials--holo .testimonial-card {
-    translate: calc(var(--d, 0) * 58%) 0 calc(var(--abs, 0) * -160px);
+@media (min-width: 1024px) {
+  .testimonials__grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-}
 
-/* Light mode: make the glass more solid so the text stays crisp on a white page */
-[data-theme="light"] .testimonials--holo .testimonial-card {
-  background: linear-gradient(160deg, rgba(110, 56, 0, 0.94), rgba(16, 16, 18, 0.96) 58%);
+  .testimonial-card--featured {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-xl);
+  }
+
+  .testimonial-card--featured .testimonial-card__number {
+    order: -1;
+  }
+
+  .testimonial-card--featured .testimonial-card__quote {
+    font-size: var(--font-size-lg);
+    max-width: 56ch;
+  }
 }

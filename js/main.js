@@ -74,9 +74,9 @@ document.addEventListener('DOMContentLoaded', function () {
     KD.initCircuits();
   }
 
-  // Phase 14: testimonials holographic carousel (needs the cards rendered above)
-  if (window.KD && typeof KD.initTestimonialsHolo === 'function') {
-    KD.initTestimonialsHolo();
+  // Phase 15: testimonials share the Services card look (needs the cards rendered above)
+  if (window.KD && typeof KD.initTestimonialsMatch === 'function') {
+    KD.initTestimonialsMatch();
   }
 
   // Phase 13: footer console (status bar, wordmark, copy-email)
