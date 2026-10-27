@@ -1,5 +1,5 @@
 /* ==========================================================
-   TECH.CSS  (Phases 1-13 + 16 + 17)
+   TECH.CSS  (Phases 1-13 + 16-18)
    Purpose: The "tech" layer on top of the existing design.
    Loads after components.css and only adds or overrides
    details: monospace labels, glow, hairlines, pulse, scrollbar.
@@ -1585,4 +1585,56 @@ html.kd-footer-view .kd-hud {
 .process-step:not(:last-child)::after {
   left: calc(100% - var(--step-pad));
   top: calc(24px + var(--step-pad) - var(--space-xs));
+}
+
+/* ==========================================================
+   PHASE 18: HERO ON PHONES (under 600px)
+   1. In dark mode the photo is the hero background. It is now sized to
+      the screen width, so the photo's top edge always sits the same
+      distance below the buttons on every phone (before, it crashed into
+      the second button on some screens).
+   2. The "View My Work" button was orange on an orange photo and hard to
+      read: it now has white text on a dark glass fill.
+   3. The big gap between the typing line and the buttons is tightened.
+   (html[data-theme] is used so these win over responsive.css, which
+   loads after this file.)
+============================================================= */
+@media (max-width: 599px) {
+  html[data-theme="dark"] .hero {
+    background-color: rgb(170, 69, 0); /* matches the top of the photo, so it blends */
+    background-image:
+      linear-gradient(180deg, rgba(10, 8, 6, 0.7) 0%, rgba(10, 8, 6, 0.3) 35%, rgba(10, 8, 6, 0) 60%),
+      url('../assets/images/hero/hero-visual-mobile.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%, 100% auto;
+    background-position: top center, bottom center;
+    /* the photo card's top edge sits 1.293 x screen-width above the bottom,
+       so this leaves a steady ~40px gap under the buttons on every phone */
+    padding-bottom: calc(129.3vw - var(--space-lg));
+  }
+
+  .hero__typed {
+    margin-bottom: 0;
+  }
+
+  .hero__actions {
+    margin-top: 0;
+  }
+
+  html[data-theme="dark"] .hero .hero__paragraph {
+    color: rgba(255, 255, 255, 0.88);
+  }
+
+  html[data-theme="dark"] .hero .btn--secondary {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.75);
+    background-color: rgba(10, 8, 6, 0.45);
+  }
+
+  html[data-theme="dark"] .hero .btn--secondary:hover,
+  html[data-theme="dark"] .hero .btn--secondary:focus-visible {
+    color: #fff;
+    border-color: transparent;
+    background: var(--gradient-primary);
+  }
 }

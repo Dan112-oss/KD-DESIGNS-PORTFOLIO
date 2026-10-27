@@ -53,7 +53,7 @@
   <script>
     (function () {
       var stored = localStorage.getItem('kd-theme');
-      var theme = stored || 'dark'; // dark-first: the tech look is the default
+      var theme = stored || 'light'; // first-time visitors see the light theme; the toggle remembers their choice
       document.documentElement.setAttribute('data-theme', theme);
 
       // Phase 6: show the boot screen once per session (not for reduced-motion).
@@ -246,7 +246,7 @@
             >
             <!-- Phase 9: scan sweep + tag (decorative) -->
             <span class="portrait-frame__scan" aria-hidden="true"></span>
-            <span class="portrait-frame__tag" aria-hidden="true">KD // Visual Identity</span>
+            <span class="portrait-frame__tag" aria-hidden="true">KD // Brand Designer</span>
           </div>
 
           <!-- Reserved space for selected work previews, added in a later phase -->
