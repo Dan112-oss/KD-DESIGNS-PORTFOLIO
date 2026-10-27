@@ -1,5 +1,5 @@
 /* ==========================================================
-   TECH.CSS  (Phases 1-13 + 16)
+   TECH.CSS  (Phases 1-13 + 16 + 17)
    Purpose: The "tech" layer on top of the existing design.
    Loads after components.css and only adds or overrides
    details: monospace labels, glow, hairlines, pulse, scrollbar.
@@ -1547,4 +1547,42 @@ html.kd-footer-view .kd-hud {
   color: transparent;
   -webkit-text-fill-color: transparent;
   user-select: none;
+}
+
+/* ==========================================================
+   PHASE 17: "HOW I WORK" STEP BOX PADDING
+   The steps had no side padding, so on hover the glow/border box sat
+   right against the text. Each step now has inner padding; a matching
+   negative margin keeps the text exactly where it was, and the box
+   simply grows outward around it.
+============================================================= */
+.process-step {
+  --step-pad: var(--space-sm);
+  padding: var(--step-pad);
+  /* negative margins = padding minus the original 8px, so the text stays put */
+  margin: calc(-1 * (var(--step-pad) - var(--space-xs) + 1px)) calc(-1 * (var(--step-pad) + 1px));
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  transition:
+    transform var(--transition-base),
+    border-color var(--transition-base),
+    background-color var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+/* resting state stays invisible in both themes (open layout) */
+[data-theme="dark"] .process-step {
+  border-color: transparent;
+}
+
+.process-step:hover,
+.process-step:focus-visible {
+  border-color: rgba(215, 112, 1, 0.5);
+  background-color: rgba(215, 112, 1, 0.05);
+}
+
+/* connector line keeps its original position despite the padding */
+.process-step:not(:last-child)::after {
+  left: calc(100% - var(--step-pad));
+  top: calc(24px + var(--step-pad) - var(--space-xs));
 }
